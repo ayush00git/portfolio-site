@@ -4,6 +4,7 @@ import DockComp from './components/DockComp'
 import ProjectPage from './Pages/ProjectPage'
 import BlogPage from './Pages/BlogPage'
 import Achievements from './Pages/AchievementPage'
+import YapsPage from './Pages/YapsPage'
 
 function AppContent() {
   return (
@@ -12,7 +13,7 @@ function AppContent() {
         <Route path="/" element={<HomePage />} />
         <Route path="/projects" element={<ProjectPage />} />
         <Route path="/blogs" element={<BlogPage />} />
-        <Route path="/yaps" element={<div className="flex items-center justify-center h-screen bg-[#0D1117] text-white text-4xl">Yaps Page</div>} />
+        <Route path="/yaps" element={<YapsPage />} />
         <Route path="/achievements" element={<Achievements />} />
       </Routes>
 
