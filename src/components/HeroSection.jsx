@@ -113,9 +113,9 @@ const HeroSection = () => {
                     <span>DESIGNER</span>
                 </div>
 
-                <div className="text-white text-xl font-medium tracking-wide pointer-events-auto">
+                {/* <div className="text-white text-xl font-medium tracking-wide pointer-events-auto">
                     <span>TECHNERD</span>
-                </div>
+                </div> */}
             </div>
 
             {/* Invisible Drag Handle Layer (On Top) */}
