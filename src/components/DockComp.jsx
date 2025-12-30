@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom';
-import { Home, Folder, Music, MessageCircle, Ghost } from 'lucide-react';
+import { Home, Folder, BookOpen, MessageCircle, Trophy } from 'lucide-react';
 import Dock from './Dock';
 
 const DockComp = () => {
@@ -8,9 +8,9 @@ const DockComp = () => {
     const dockItems = [
         { icon: <Home size={24} color="white" strokeWidth={2.5} />, label: 'Home', onClick: () => navigate('/') },
         { icon: <Folder size={24} color="white" strokeWidth={2.5} />, label: 'Projects', onClick: () => navigate('/projects') },
-        { icon: <Music size={24} color="white" strokeWidth={2.5} />, label: 'Spotify', onClick: () => navigate('/spotify') },
+        { icon: <BookOpen size={24} color="white" strokeWidth={2.5} />, label: 'Blogs', onClick: () => navigate('/blogs') },
         { icon: <MessageCircle size={24} color="white" strokeWidth={2.5} />, label: 'Yaps', onClick: () => navigate('/yaps') },
-        { icon: <Ghost size={24} color="white" strokeWidth={2.5} />, label: 'Random', onClick: () => navigate('/random') },
+        { icon: <Trophy size={24} color="white" strokeWidth={2.5} />, label: 'Achievements', onClick: () => navigate('/achievements') },
     ];
 
     return (
