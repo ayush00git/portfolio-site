@@ -108,8 +108,7 @@ const SkillsSection = () => {
                         {levels.map((level, index) => (
                             <div
                                 key={level.id}
-                    className={`absolute top-0 left-0 w-full transition-all duration-700 ease-[cubic-bezier(0.25,1,0.5,1)] ${
-                        index === activeIndex 
+                                className={`absolute top-0 left-0 w-full transition-all duration-700 ease-[cubic-bezier(0.25,1,0.5,1)] ${index === activeIndex
                                         ? 'opacity-100 translate-y-0 delay-150'
                                         : index < activeIndex
                                             ? 'opacity-0 -translate-y-12'
@@ -123,7 +122,7 @@ const SkillsSection = () => {
                                     {level.title}
                                 </h2>
                                 <div className="w-24 h-2 mb-8" style={{ backgroundColor: level.color }}></div>
-                    <p className="text-xl text-[#8b949e] max-w-md leading-relaxed">
+                                <p className="text-xl text-[#8b949e] max-w-md leading-relaxed">
                                     {level.description}
                                 </p>
                             </div>
@@ -155,7 +154,7 @@ const SkillsSection = () => {
                                     {level.stack.map((item, i) => (
                                         <div
                                             key={i}
-                                            className="group relative bg-[#161b22] border border-[#30363d] p-6 hover:bg-white transition-colors duration-300"
+                                            className="cursor-target group relative bg-[#161b22] border border-[#30363d] p-6 hover:bg-white transition-colors duration-300"
                                         >
                                             <div className="flex justify-between items-start mb-4">
                                                 <Square size={12} className="text-[#30363d] group-hover:text-black fill-current" />

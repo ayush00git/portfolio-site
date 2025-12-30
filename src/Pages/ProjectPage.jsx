@@ -1,10 +1,13 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
+import { Target } from 'lucide-react';
 import ProjectsSection from "../components/ProjectsSection";
 import SkillsSection from "../components/SkillsSection";
 import VibeCodeSection from "../components/VibeCodeSection";
+import TargetCursor from "../components/TargetCursor";
 
 const ProjectPage = () => {
   const scrollContainerRef = useRef(null);
+  const [showCursor, setShowCursor] = useState(true);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -40,6 +43,27 @@ const ProjectPage = () => {
 
   return (
     <div ref={scrollContainerRef}>
+
+      {/* Cursor Toggle */}
+      <button
+        onClick={() => setShowCursor(!showCursor)}
+        className={`cursor-target fixed top-6 right-6 z-100 cursor-pointer p-3 rounded-full border transition-all duration-300 ${showCursor
+          ? "bg-white text-black border-transparent shadow-[0_0_15px_rgba(255,255,255,0.5)]"
+          : "bg-black/50 text-white/50 border-white/20 hover:text-white hover:border-white"
+          }`}
+        title="Toggle Cursor"
+      >
+        <Target size={20} />
+      </button>
+
+      {showCursor && (
+        <TargetCursor
+          spinDuration={2}
+          hideDefaultCursor={true}
+          parallaxOn={true}
+          targetSelector=".cursor-target, a, button, [role='button']"
+        />
+      )}
       {/* First set of sections */}
       <SkillsSection />
       <ProjectsSection />
