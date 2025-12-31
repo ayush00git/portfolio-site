@@ -8,102 +8,42 @@ const BlogPage = () => {
         document.body.style.overflow = selectedPost ? 'hidden' : 'unset';
     }, [selectedPost]);
 
-    const posts = [
-        {
-            id: 1,
-            title: "The Death of the Monolith",
-            excerpt: "Breaking down a legacy Node.js application into scalable microservices using gRPC and RabbitMQ.",
-            date: "Dec 28, 2024",
-            readTime: "8 min read",
-            tags: ["System Design", "Microservices"],
-            color: "#ff0080",
-            content: `
-        <h3>The Breaking Point</h3>
-        <p>It started with a simple timeout error. Our monolithic Node.js backend, which had served us faithfully for three years, was finally buckling under the weight of 50k concurrent connections. The event loop was blocked, garbage collection was thrashing, and deployment took 45 minutes.</p>
-        <p>We had two choices: vertical scaling (throwing money at AWS) or decomposing the beast.</p>
-        <h3>The Strategy: Strangler Fig Pattern</h3>
-        <p>We didn't rewrite everything at once. We identified the "hottest" bounded context—the Notification Service—and extracted it first.</p>
-        <pre><code class="language-javascript">
-// The Old Way (In-Memory Tightly Coupled)
-const sendNotification = async (userId, message) => {
-  const user = await User.findById(userId);
-  await emailService.send(user.email, message);
-};
-        </code></pre>
-        <p>Moving to a distributed architecture meant introducing <strong>gRPC</strong> for low-latency inter-service communication and <strong>RabbitMQ</strong> for asynchronous tasks like email delivery. The latency overhead was negligible compared to the unblocked event loop gains.</p>
-      `
-        },
-        {
-            id: 2,
-            title: "Switched to Neovim",
-            excerpt: "It wasn't just about looking cool. It was about speed, muscle memory, and owning my environment.",
-            date: "Dec 15, 2024",
-            readTime: "5 min read",
-            tags: ["Productivity", "Tools"],
-            color: "#7928ca",
-            content: `
-        <h3>The Mouse is the Enemy</h3>
-        <p>Every time you reach for the mouse, you break your flow state. VS Code is fantastic, but it encourages a "point and click" mentality. Neovim forces you to think in keyboard shortcuts and motions.</p>
-        <h3>My Config Journey</h3>
-        <p>Starting with bare vim is masochism. I recommend <strong>LazyVim</strong> or <strong>NvChad</strong> for beginners. Here is a snippet of my Lua config for LSP attachment:</p>
-        <pre><code class="language-lua">
--- lsp-config.lua
-on_attach = function(client, bufnr)
-  local opts = { noremap=true, silent=true }
-  vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
-end
-        </code></pre>
-        <p>Once you learn <code>ciw</code> (change inner word) or <code>dt"</code> (delete to quote), you can never go back to holding backspace.</p>
-      `
-        },
-        {
-            id: 3,
-            title: "React Server Components",
-            excerpt: "A deep dive into the architecture of Next.js 13+ and how RSCs change data fetching.",
-            date: "Nov 30, 2024",
-            readTime: "12 min read",
-            tags: ["Frontend", "React"],
-            color: "#0070f3",
-            content: `
-        <h3>The Waterfall Problem</h3>
-        <p>Traditional React apps often suffer from "fetch waterfalls"—component A fetches, renders, then component B fetches. RSCs solve this by moving data fetching to the server, where latency to the DB is near zero.</p>
-        <h3>Server vs. Client Components</h3>
-        <p>The mental model shift is tricky. By default, everything in the App Router is a Server Component. You only "opt-in" to client-side interactivity with the <code>'use client'</code> directive.</p>
-        <p>This drastically reduces bundle size. Libraries like <code>moment.js</code> or heavy markdown parsers stay on the server and never touch the browser.</p>
-      `
-        },
-        {
-            id: 4,
-            title: "Rust for JS Developers",
-            excerpt: "The borrow checker is scary, but the performance is worth it. Mapping JS concepts to Rust.",
-            date: "Nov 12, 2024",
-            readTime: "15 min read",
-            tags: ["Rust", "Learning"],
-            color: "#f5a623",
-            content: `
-        <h3>Memory Management without GC</h3>
-        <p>JavaScript has a Garbage Collector (GC). C++ requires manual memory management. Rust finds the middle ground: <strong>Ownership & Borrowing</strong>.</p>
-        <p>In JS, you pass objects around freely. In Rust, variables have a single owner. When the owner goes out of scope, memory is freed immediately. No GC pauses.</p>
-        <h3>The Result</h3>
-        <p>Predictable performance. This is why tools like Vercel's Turbopack and SWC are being rewritten in Rust. It's the future of web tooling.</p>
-      `
-        },
-        {
-            id: 5,
-            title: "Designing Dark Mode",
-            excerpt: "Why starting with a dark palette creates better contrast hierarchies.",
-            date: "Oct 28, 2024",
-            readTime: "6 min read",
-            tags: ["Design", "UI/UX"],
-            color: "#ffffff",
-            content: `
-        <h3>Light is the Absence of Data</h3>
-        <p>Screens emit light. Dark mode reduces eye strain, but designing for it isn't just "inverting colors". It requires a careful system of elevations.</p>
-        <h3>Elevation Strategy</h3>
-        <p>In Material Design, higher surfaces are lighter gray, not black. Pure black (<code>#000000</code>) causes smearing on OLED screens. Use <code>#121212</code> or GitHub's <code>#0d1117</code> as your base.</p>
-      `
-        }
-    ];
+    const [posts, setPosts] = useState([]);
+
+    const formatDate = (isoString) => {
+        if (!isoString) return '';
+        const date = new Date(isoString);
+        return date.toLocaleDateString('en-US', {
+            year: 'numeric',
+            month: 'short',
+            day: 'numeric'
+        });
+    };
+
+    useEffect(() => {
+        const fetchPosts = async () => {
+            try {
+                const response = await fetch('https://tnc.ayushz.me/api/blog');
+                const data = await response.json();
+                const targetUserId = '6946e5bd9aaa7ef7e725117a';
+                const sortPosts = (posts) => posts.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+
+                if (Array.isArray(data)) {
+                    const filtered = data.filter(post => post.user === targetUserId);
+                    setPosts(sortPosts(filtered));
+                } else if (data && Array.isArray(data.blogs)) {
+                    const filtered = data.blogs.filter(post => post.user === targetUserId);
+                    setPosts(sortPosts(filtered));
+                } else {
+                    setPosts([]);
+                }
+            } catch (error) {
+                setPosts([]);
+            }
+        };
+
+        fetchPosts();
+    }, []);
 
     return (
         <div className="min-h-screen bg-[#0d1117] text-[#c9d1d9] font-sans selection:bg-white selection:text-black relative">
@@ -134,9 +74,9 @@ end
 
                     {/* NO-IMAGE POST LIST */}
                     <div className="flex flex-col">
-                        {posts.map((post) => (
+                        {Array.isArray(posts) && posts.map((post, index) => (
                             <div
-                                key={post.id}
+                                key={post._id || post.id || index}
                                 className="group relative border-t border-[#30363d] py-16 md:py-24 cursor-pointer transition-colors duration-500 hover:bg-[#161b22]/30"
                                 onClick={() => setSelectedPost(post)}
                             >
@@ -148,10 +88,10 @@ end
                                     {/* Column 1: Index & Meta */}
                                     <div className="w-full md:w-32 flex flex-row md:flex-col justify-between md:justify-start gap-4 shrink-0">
                                         <span className="font-mono text-4xl md:text-6xl font-bold text-[#30363d] group-hover:text-white transition-colors duration-300 select-none">
-                                            0{post.id}
+                                            {(index + 1).toString().padStart(2, '0')}
                                         </span>
                                         <div className="flex flex-col text-xs font-mono text-[#8b949e] uppercase tracking-widest">
-                                            <span>{post.date}</span>
+                                            <span>{formatDate(post.createdAt)}</span>
                                             <span className="mt-1">{post.readTime}</span>
                                         </div>
                                     </div>
@@ -200,7 +140,7 @@ end
                             {/* Reader Header */}
                             <div className="sticky top-0 z-20 flex justify-between items-center p-6 bg-[#0d1117]/95 backdrop-blur border-b border-[#30363d]">
                                 <div className="flex items-center gap-2 text-[#8b949e] font-mono text-xs">
-                                    <TerminalIcon size={14} /><span>~/logs/{selectedPost.id}</span>
+                                    <TerminalIcon size={14} /><span>~/logs/{(posts.indexOf(selectedPost) + 1).toString().padStart(2, '0')}</span>
                                 </div>
                                 <button onClick={() => setSelectedPost(null)} className="p-2 hover:bg-[#161b22] rounded-full transition-colors text-white group">
                                     <X size={24} className="group-hover:rotate-90 transition-transform duration-300" />
@@ -221,7 +161,7 @@ end
                                         {selectedPost.title}
                                     </h1>
                                     <div className="flex flex-col md:flex-row md:items-center gap-6 text-[#8b949e] font-mono text-sm uppercase tracking-widest border-l-2 border-[#30363d] pl-4">
-                                        <span>{selectedPost.date}</span>
+                                        <span>{formatDate(selectedPost.createdAt)}</span>
                                         <span className="hidden md:inline">/</span>
                                         <span>{selectedPost.readTime}</span>
                                     </div>

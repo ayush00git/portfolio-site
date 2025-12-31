@@ -98,7 +98,7 @@ export default function Dock({
         <motion.div style={{ height, scrollbarWidth: 'none' }} className="fixed bottom-0 left-0 right-0 pointer-events-none flex max-w-full items-center z-50">
             <motion.div
                 onMouseMove={({ pageX }) => {
-                    isHovered.set(1);
+                    isHovered.set(1); 
                     mouseX.set(pageX);
                 }}
                 onMouseLeave={() => {

@@ -100,7 +100,7 @@ const HeroSection = () => {
             {/* Center Image - Larger size, showing upper half */}
             <div className="relative z-5 flex items-end justify-center w-full h-full pointer-events-none">
                 <img
-                    src="/mw.png"
+                    src="/me.png"
                     alt="Ayush Kumar"
                     className="h-full w-auto object-cover object-top brightness-95"
                 />

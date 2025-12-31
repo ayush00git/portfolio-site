@@ -9,7 +9,7 @@ const Achievements = () => {
             role: "NATIONAL WINNER",
             title: "Best Beginner Hack",
             description: "Secured the top spot by building 'MotionEye', an accessibility tool for Alzheimer's patients.",
-            date: "MARCH 2024",
+            date: "MARCH 2025",
             icon: <Trophy size={64} />,
             color: "#eab308", // Gold
             bgHover: "hover:bg-[#eab308]",
@@ -27,7 +27,7 @@ const Achievements = () => {
             role: "GLOBAL CONTRIBUTOR",
             title: "Open Source",
             description: "Completed the global challenge by merging 6+ quality PRs. Planted a tree & earned the kit.",
-            date: "OCT 2024",
+            date: "OCT 2025",
             icon: <GitPullRequest size={64} />,
             color: "#f97316", // Orange
             bgHover: "hover:bg-[#f97316]",
@@ -62,7 +62,7 @@ const Achievements = () => {
                             Verified Credentials
                         </p>
                         <p className="text-right font-mono text-white text-xl">
-                            2024 Collection
+                            2025 Collection
                         </p>
                     </div>
                 </div>
