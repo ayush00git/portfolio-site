@@ -38,7 +38,6 @@ const SkillsSection = () => {
                 { name: "Nginx", type: "Server" },
                 { name: "GitHub CI/CD", type: "DevOps" },
                 { name: "Postman", type: "Testing" },
-                { name: "AWS", type: "Cloud" },
             ]
         },
         {
@@ -73,7 +72,8 @@ const SkillsSection = () => {
     useEffect(() => {
         const handleScroll = () => {
             // Manual scroll spy logic
-            const sections = document.querySelectorAll('.skill-block');
+            if (!sectionRef.current) return;
+            const sections = sectionRef.current.querySelectorAll('.skill-block');
             const triggerPoint = window.innerHeight * 0.4; // 40% down the screen
 
             sections.forEach((section, index) => {
@@ -109,20 +109,20 @@ const SkillsSection = () => {
                             <div
                                 key={level.id}
                                 className={`absolute top-0 left-0 w-full transition-all duration-700 ease-[cubic-bezier(0.25,1,0.5,1)] ${index === activeIndex
-                                        ? 'opacity-100 translate-y-0 delay-150'
-                                        : index < activeIndex
-                                            ? 'opacity-0 -translate-y-12'
-                                            : 'opacity-0 translate-y-12'
+                                    ? 'opacity-100 translate-y-0 delay-150'
+                                    : index < activeIndex
+                                        ? 'opacity-0 -translate-y-12'
+                                        : 'opacity-0 translate-y-12'
                                     } ${index !== activeIndex ? 'pointer-events-none' : ''}`}
                             >
-                                <div className="text-8xl lg:text-[10rem] font-black text-[#30363d] leading-none mb-4 select-none">
+                                <div className="text-6xl lg:text-[10rem] font-black text-[#30363d] leading-none mb-2 lg:mb-4 select-none">
                                     {level.id}
                                 </div>
-                                <h2 className="text-5xl lg:text-7xl font-bold text-white mb-6 uppercase tracking-tight">
+                                <h2 className="text-4xl lg:text-7xl font-bold text-white mb-4 lg:mb-6 uppercase tracking-tight">
                                     {level.title}
                                 </h2>
-                                <div className="w-24 h-2 mb-8" style={{ backgroundColor: level.color }}></div>
-                                <p className="text-xl text-[#8b949e] max-w-md leading-relaxed">
+                                <div className="w-16 lg:w-24 h-2 mb-4 lg:mb-8" style={{ backgroundColor: level.color }}></div>
+                                <p className="text-base lg:text-xl text-[#8b949e] max-w-md leading-relaxed">
                                     {level.description}
                                 </p>
                             </div>

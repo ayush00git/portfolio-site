@@ -47,9 +47,6 @@ const YapsPage = () => {
         
         {/* Header */}
         <div className="mb-24">
-            <h2 className="font-mono text-xs text-[#58a6ff] uppercase tracking-widest mb-4">
-                // Random Access Memory
-            </h2>
             <h1 className="text-7xl md:text-9xl font-black text-white tracking-tighter uppercase leading-none">
                 Yaps.
             </h1>
