@@ -24,7 +24,7 @@ const ProjectsSection = () => {
         {
             title: "LA/CA",
             category: "APIs / Web",
-            description: "NITH official website for the registration of students in LA/CA courses. The website is designed with the dynamic mongodb queries as per the college's request to allow particular reservations of seats.",
+            description: "NITH official website for the registration of students in LA/CA courses. The website handled 70k+ requests in 2 days during the registrations.",
             tags: ["Node.js", "MongoDB", "REST API", "Polling", "EJS SSR", "Nodemailer"],
             image: "https://images.unsplash.com/photo-1629654297299-c8506221ca97?q=80&w=1974&auto=format&fit=crop",
             githubLink: "https://github.com/ayush00git/laca-site",
