@@ -11,6 +11,7 @@ const BlogPage = () => {
     }, [selectedPost]);
 
     const [posts, setPosts] = useState([]);
+    const [loading, setLoading] = useState(true);
 
     const formatDate = (isoString) => {
         if (!isoString) return '';
@@ -41,6 +42,8 @@ const BlogPage = () => {
                 }
             } catch (error) {
                 setPosts([]);
+            } finally {
+                setLoading(false);
             }
         };
 
@@ -71,57 +74,63 @@ const BlogPage = () => {
 
                     {/* NO-IMAGE POST LIST */}
                     <div className="flex flex-col">
-                        {Array.isArray(posts) && posts.map((post, index) => (
-                            <div
-                                key={post._id || post.id || index}
-                                className="group relative border-t border-[#30363d] py-16 md:py-24 cursor-pointer transition-colors duration-500 hover:bg-[#161b22]/30"
-                                onClick={() => setSelectedPost(post)}
-                            >
-                                {/* Left Accent Bar on Hover */}
-                                <div className="absolute left-0 top-0 bottom-0 w-1 bg-current transform scale-y-0 group-hover:scale-y-100 transition-transform duration-300 origin-top" style={{ color: post.color }} />
+                        {loading ? (
+                            <div className="flex flex-col items-center justify-center py-32 text-[#8b949e]">
+                                <TerminalIcon className="animate-spin mb-4" size={48} />
+                                <span className="font-mono text-xl animate-pulse">Fetching blogs from tnc.ayushz.me/api/blog...</span>
+                            </div>
+                        ) : (
+                            Array.isArray(posts) && posts.map((post, index) => (
+                                <div
+                                    key={post._id || post.id || index}
+                                    className="group relative border-t border-[#30363d] py-16 md:py-24 cursor-pointer transition-colors duration-500 hover:bg-[#161b22]/30"
+                                    onClick={() => setSelectedPost(post)}
+                                >
+                                    {/* Left Accent Bar on Hover */}
+                                    <div className="absolute left-0 top-0 bottom-0 w-1 bg-current transform scale-y-0 group-hover:scale-y-100 transition-transform duration-300 origin-top" style={{ color: post.color }} />
 
-                                <div className="flex flex-col md:flex-row gap-8 md:gap-20 items-start pl-6">
+                                    <div className="flex flex-col md:flex-row gap-8 md:gap-20 items-start pl-6">
 
-                                    {/* Column 1: Index & Meta */}
-                                    <div className="w-full md:w-32 flex flex-row md:flex-col justify-between md:justify-start gap-4 shrink-0">
-                                        <span className="font-mono text-4xl md:text-6xl font-bold text-[#30363d] group-hover:text-white transition-colors duration-300 select-none">
-                                            {(index + 1).toString().padStart(2, '0')}
-                                        </span>
-                                        <div className="flex flex-col text-xs font-mono text-[#8b949e] uppercase tracking-widest">
-                                            <span>{formatDate(post.createdAt)}</span>
-                                            <span className="mt-1">{post.readTime}</span>
-                                        </div>
-                                    </div>
-
-                                    {/* Column 2: Main Content */}
-                                    <div className="flex-1 min-w-0"> {/* min-w-0 ensures flex child shrinks properly */}
-                                        {/* Tags */}
-                                        <div className="flex flex-wrap gap-2 mb-6">
-                                            {post.tags.map(tag => (
-                                                <span key={tag} className="text-xs font-mono text-[#8b949e] uppercase tracking-wider border border-[#30363d] px-2 py-1 rounded group-hover:border-white/20 group-hover:text-white transition-colors">
-                                                    {tag}
-                                                </span>
-                                            ))}
+                                        {/* Column 1: Index & Meta */}
+                                        <div className="w-full md:w-32 flex flex-row md:flex-col justify-between md:justify-start gap-4 shrink-0">
+                                            <span className="font-mono text-4xl md:text-6xl font-bold text-[#30363d] group-hover:text-white transition-colors duration-300 select-none">
+                                                {(index + 1).toString().padStart(2, '0')}
+                                            </span>
+                                            <div className="flex flex-col text-xs font-mono text-[#8b949e] uppercase tracking-widest">
+                                                <span>{formatDate(post.createdAt)}</span>
+                                                <span className="mt-1">{post.readTime}</span>
+                                            </div>
                                         </div>
 
-                                        {/* Title - Fixed Line Height */}
-                                        <h2 className="text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-6 leading-tight tracking-tight group-hover:translate-x-2 transition-transform duration-300 uppercase">
-                                            {post.title}
-                                        </h2>
+                                        {/* Column 2: Main Content */}
+                                        <div className="flex-1 min-w-0"> {/* min-w-0 ensures flex child shrinks properly */}
+                                            {/* Tags */}
+                                            <div className="flex flex-wrap gap-2 mb-6">
+                                                {post.tags.map(tag => (
+                                                    <span key={tag} className="text-xs font-mono text-[#8b949e] uppercase tracking-wider border border-[#30363d] px-2 py-1 rounded group-hover:border-white/20 group-hover:text-white transition-colors">
+                                                        {tag}
+                                                    </span>
+                                                ))}
+                                            </div>
 
-                                        {/* Excerpt */}
-                                        <p className="text-[#8b949e] text-lg md:text-2xl font-light max-w-3xl leading-relaxed mb-8">
-                                            {post.excerpt}
-                                        </p>
+                                            {/* Title - Fixed Line Height */}
+                                            <h2 className="text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-6 leading-tight tracking-tight group-hover:translate-x-2 transition-transform duration-300 uppercase">
+                                                {post.title}
+                                            </h2>
 
-                                        {/* Action */}
-                                        <div className="flex items-center gap-3 text-white font-bold uppercase tracking-wider text-sm opacity-0 transform translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300">
-                                            Read Entry <ArrowUpRight size={16} />
+                                            {/* Excerpt */}
+                                            <p className="text-[#8b949e] text-lg md:text-2xl font-light max-w-3xl leading-relaxed mb-8">
+                                                {post.excerpt}
+                                            </p>
+
+                                            {/* Action */}
+                                            <div className="flex items-center gap-3 text-white font-bold uppercase tracking-wider text-sm opacity-0 transform translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300">
+                                                Read Entry <ArrowUpRight size={16} />
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                        ))}
+                            )))}
                     </div>
 
                 </div>

@@ -20,24 +20,6 @@ const YapsPage = () => {
       content: "Arch Linux + Neovim + Tmux. No mouse policy. If I can't do it in the terminal, I probably won't do it.",
       color: "#3fb950" // Green
     },
-    {
-      id: "04",
-      category: "BASE",
-      content: "Operating remotely from India (IST).",
-      color: "#58a6ff" // Blue
-    },
-    {
-      id: "05",
-      category: "FUEL",
-      content: "Powered by Dark Roast Coffee. Caffeine dependency is critical.",
-      color: "#8b949e" // Gray
-    },
-    {
-      id: "06",
-      category: "AUDIO",
-      content: "Coding requires specific frequencies. Usually blasting Synthwave or Lo-Fi beats.",
-      color: "#7928ca" // Purple
-    }
   ];
 
   return (
@@ -80,13 +62,6 @@ const YapsPage = () => {
                     </p>
                 </div>
             ))}
-            
-            {/* Footer Block */}
-            <div className="break-inside-avoid pt-12">
-                <p className="font-mono text-xs text-[#30363d] uppercase tracking-widest">
-                    // End of Stream
-                </p>
-            </div>
         </div>
 
       </div>
