@@ -13,6 +13,24 @@ const ProjectsSection = () => {
             liveLink: "https://tnc.ayushz.me"
         },
         {
+            title: "goth",
+            category: "Backend / Microservices",
+            description: "An auth based microservice",
+            tags: ["Go", "Microservices", "Auth"],
+            image: "/goth.png",
+            githubLink: "https://github.com/ayush00git/goth",
+            liveLink: "#"
+        },
+        {
+            title: "gothctl",
+            category: "CLI / Tools",
+            description: "A CLI tool for managing goth services.",
+            tags: ["Go", "Cobra", "Viper", "CLI"],
+            image: "/gothctl.png",
+            githubLink: "https://github.com/ayush00git/gothctl",
+            liveLink: "#"
+        },
+        {
             title: "DezNov",
             category: "Design / Web (In development)",
             description: "A platform where you can share your coding and design projects within the community, would help users to get inspos and connect within a community and a much more...",
@@ -116,7 +134,7 @@ const Card = ({ project, index }) => {
                     <img
                         src={project.image}
                         alt={project.title}
-                        className="w-full h-full object-cover"
+                        className="w-full h-full object-cover bg-[#0d1117]"
                     />
                     {/* Overlay for text contrast if needed */}
                     <div className="absolute inset-0 bg-black/10"></div>

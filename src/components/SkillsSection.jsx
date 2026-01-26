@@ -1,5 +1,5 @@
 import React, { useRef, useEffect, useState } from 'react';
-import { Database, Terminal, Layout, Sparkles, ArrowUpRight, Square } from 'lucide-react';
+import { Database, Terminal, Layout, Sparkles, ArrowUpRight, Square, Command } from 'lucide-react';
 
 const SkillsSection = () => {
     const sectionRef = useRef(null);
@@ -21,7 +21,8 @@ const SkillsSection = () => {
                 { name: "REST API", type: "Arch" },
                 { name: "WebSockets", type: "Realtime" },
                 { name: "Microservices", type: "Arch" },
-                { name: "EJS (SSR)", type: "Template" }
+                { name: "EJS (SSR)", type: "Template" },
+                { name: "Gin", type: "Framework" }
             ]
         },
         {
@@ -42,6 +43,18 @@ const SkillsSection = () => {
         },
         {
             id: '03',
+            title: "CLI DEVELOPMENT",
+            subtitle: "CLI & Go Tools",
+            description: "Building powerful CLI applications and tools using Go's ecosystem.",
+            color: "#00ADD8", // Cyan/Blue
+            icon: <Command size={48} />,
+            stack: [
+                { name: "Cobra", type: "Library" },
+                { name: "Viper", type: "Config" }
+            ]
+        },
+        {
+            id: '04',
             title: "INTERFACE",
             subtitle: "Frontend and UI/UX",
             description: "I barely code frontend, learned these when I used to convert my figma designs to code .",
@@ -55,7 +68,7 @@ const SkillsSection = () => {
             ]
         },
         {
-            id: '04',
+            id: '05',
             title: "VIBE CODING",
             subtitle: "Vibe Coding",
             description: "Literally build anything you want, just need to have a knowledge of the folder structure.",
