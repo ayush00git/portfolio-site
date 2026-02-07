@@ -1,5 +1,5 @@
 import React from 'react';
-import { Trophy, GitPullRequest, ArrowUpRight, Crown } from 'lucide-react';
+import { Trophy, GitPullRequest, ArrowUpRight, Crown, Server } from 'lucide-react';
 
 const Achievements = () => {
     const achievements = [
@@ -38,6 +38,24 @@ const Achievements = () => {
                 { label: "Reward", value: "Tree" }
             ],
             link: "https://tree-nation.com/certificate/f3f6603eab101a47"
+        },
+        {
+            id: "03",
+            event: "CERTIFICATION",
+            role: "BACKEND SPECIALIST",
+            title: "Backend Excellence",
+            description: "Recognized for outstanding implementation of scalable backend systems and system design.",
+            date: "DEC 2025",
+            icon: <Server size={64} />,
+            color: "#3b82f6", // Blue
+            bgHover: "hover:bg-[#3b82f6]",
+            textHover: "group-hover:text-black",
+            borderHover: "group-hover:border-black/10",
+            stats: [
+                { label: "Type", value: "Award" },
+                { label: "Domain", value: "Backend" }
+            ],
+            link: "https://drive.google.com/file/d/1BWlWbZXP5Niy5B9OvAyBWlNZnAzr2rKj/view?usp=drive_link"
         }
     ];
 
