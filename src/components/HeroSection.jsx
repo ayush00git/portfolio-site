@@ -51,7 +51,7 @@ const HeroSection = () => {
             {/* Top Right - Social Links */}
             <div className="absolute top-10 right-10 flex flex-col gap-2 z-10">
                 <a
-                    href="https://github.com"
+                    href="https://github.com/ayush00git"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-white text-xl font-medium tracking-wide transition-opacity hover:opacity-70"
@@ -59,7 +59,7 @@ const HeroSection = () => {
                     GITHUB
                 </a>
                 <a
-                    href="https://instagram.com"
+                    href="https://www.instagram.com/ayyush_z/"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-white text-xl font-medium tracking-wide transition-opacity hover:opacity-70"
@@ -67,7 +67,7 @@ const HeroSection = () => {
                     INSTAGRAM
                 </a>
                 <a
-                    href="https://linkedin.com"
+                    href="https://www.linkedin.com/in/ayush-kumar-368446246/"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-white text-xl font-medium tracking-wide transition-opacity hover:opacity-70"
