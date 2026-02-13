@@ -25,4 +25,77 @@
     .font-bad-script {
         font-family: 'Bad Script', cursive !important;
     }
+
+    /* Premium Markdown Styles */
+    .markdown-content {
+        @apply text-[#c9d1d9] leading-[1.8] text-lg md:text-xl font-light;
+    }
+
+    .markdown-content h1 {
+        @apply text-white text-4xl md:text-6xl font-black mt-16 mb-8 uppercase tracking-tight leading-tight;
+    }
+
+    .markdown-content h2 {
+        @apply text-white text-3xl md:text-4xl font-bold mt-12 mb-6 tracking-tight;
+    }
+
+    .markdown-content h3 {
+        @apply text-white text-2xl md:text-3xl font-bold mt-10 mb-4 tracking-tight;
+    }
+
+    .markdown-content p {
+        @apply mb-8 leading-relaxed opacity-90;
+    }
+
+    .markdown-content a {
+        @apply text-white font-bold underline decoration-white/30 underline-offset-4 hover:decoration-white transition-all cursor-pointer;
+    }
+
+    .markdown-content code {
+        @apply px-1.5 py-0.5 text-[0.9em] font-mono border border-[#30363d] rounded bg-[#161b22] text-white;
+    }
+
+    .markdown-content pre {
+        @apply overflow-x-auto my-10 p-6 border border-[#30363d] rounded-xl bg-[#0d1117] shadow-xl;
+    }
+
+    .markdown-content pre code {
+        @apply p-0 border-0 bg-transparent text-inherit text-sm md:text-base;
+    }
+
+    .markdown-content ul, .markdown-content ol {
+        @apply mb-8 pl-6 space-y-4;
+    }
+
+    .markdown-content ul {
+        @apply list-disc;
+    }
+
+    .markdown-content ol {
+        @apply list-decimal;
+    }
+
+    .markdown-content li {
+        @apply pl-2;
+    }
+
+    .markdown-content blockquote {
+        @apply border-l-4 border-white pl-8 py-2 my-12 italic text-white/70 text-2xl font-light;
+    }
+
+    .markdown-content strong {
+        @apply font-bold text-white;
+    }
+
+    .markdown-content em {
+        @apply italic opacity-100;
+    }
+
+    .markdown-content img {
+        @apply rounded-xl my-12 border border-[#30363d] shadow-2xl mx-auto;
+    }
+
+    .markdown-content hr {
+        @apply border-[#30363d] my-16;
+    }
 }

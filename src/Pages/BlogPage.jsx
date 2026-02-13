@@ -140,7 +140,7 @@ const BlogPage = () => {
             <div className={`fixed inset-0 z-50 flex justify-end transition-visibility duration-500 ${selectedPost ? 'visible' : 'invisible'}`}>
                 <div className={`absolute inset-0 bg-[#000000]/80 backdrop-blur-sm transition-opacity duration-500 ${selectedPost ? 'opacity-100' : 'opacity-0'}`} onClick={() => setSelectedPost(null)} />
 
-                <div className={`relative w-full h-full bg-[#0d1117] shadow-2xl overflow-y-auto transform transition-transform duration-500 ease-[cubic-bezier(0.25,1,0.5,1)] ${selectedPost ? 'translate-x-0' : 'translate-x-full'} [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]`}>
+                <div data-lenis-prevent className={`relative w-full h-full bg-[#0d1117] shadow-2xl overflow-y-auto transform transition-transform duration-500 ease-[cubic-bezier(0.25,1,0.5,1)] ${selectedPost ? 'translate-x-0' : 'translate-x-full'}`}>
                     {selectedPost && (
                         <>
                             {/* Reader Header */}
@@ -174,26 +174,11 @@ const BlogPage = () => {
                                 </div>
 
                                 {/* Content */}
-                                <div className="text-[#c9d1d9] font-light leading-loose selection:bg-white selection:text-black markdown-content">
+                                <div className="max-w-[850px] mx-auto text-[#c9d1d9] font-light leading-loose selection:bg-white selection:text-black markdown-content">
                                     <ReactMarkdown
                                         rehypePlugins={[rehypeRaw]}
                                         components={{
-                                            h1: ({ node, ...props }) => <h1 className="text-4xl font-bold text-white mt-8 mb-4" {...props} />,
-                                            h2: ({ node, ...props }) => <h2 className="text-3xl font-bold text-white mt-6 mb-3" {...props} />,
-                                            h3: ({ node, ...props }) => <h3 className="text-2xl font-bold text-white mt-5 mb-2" {...props} />,
-                                            p: ({ node, ...props }) => <p className="mb-4 text-lg leading-relaxed" {...props} />,
-                                            a: ({ node, ...props }) => <a className="text-white font-bold underline" target="_blank" rel="noopener noreferrer" {...props} />,
-                                            code: ({ node, inline, ...props }) =>
-                                                inline
-                                                    ? <code className="px-1.5 py-0.5 text-sm font-mono border border-[#30363d] rounded" {...props} />
-                                                    : <code className="block p-4 text-sm font-mono overflow-x-auto my-4 border border-[#30363d] rounded" {...props} />,
-                                            pre: ({ node, ...props }) => <pre className="overflow-x-auto my-4" {...props} />,
-                                            ul: ({ node, ...props }) => <ul className="list-disc list-inside mb-4 space-y-2" {...props} />,
-                                            ol: ({ node, ...props }) => <ol className="list-decimal list-inside mb-4 space-y-2" {...props} />,
-                                            li: ({ node, ...props }) => <li className="ml-4" {...props} />,
-                                            blockquote: ({ node, ...props }) => <blockquote className="border-l-4 border-[#30363d] pl-4 italic my-4 text-[#8b949e]" {...props} />,
-                                            strong: ({ node, ...props }) => <strong className="font-bold text-white" {...props} />,
-                                            em: ({ node, ...props }) => <em className="italic" {...props} />,
+                                            a: ({ node, ...props }) => <a target="_blank" rel="noopener noreferrer" {...props} />,
                                         }}
                                     >
                                         {selectedPost.content}
