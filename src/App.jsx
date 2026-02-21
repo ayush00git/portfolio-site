@@ -6,7 +6,6 @@ import DockComp from './components/DockComp'
 import ProjectPage from './Pages/ProjectPage'
 import BlogPage from './Pages/BlogPage'
 import Achievements from './Pages/AchievementPage'
-import YapsPage from './Pages/YapsPage'
 
 function AppContent() {
   useEffect(() => {
@@ -30,7 +29,6 @@ function AppContent() {
         <Route path="/" element={<HomePage />} />
         <Route path="/projects" element={<ProjectPage />} />
         <Route path="/blogs" element={<BlogPage />} />
-        <Route path="/yaps" element={<YapsPage />} />
         <Route path="/achievements" element={<Achievements />} />
       </Routes>
 
