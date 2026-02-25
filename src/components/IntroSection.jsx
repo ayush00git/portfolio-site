@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import { motion, useScroll, useTransform, useSpring, useMotionValueEvent } from 'motion/react';
 
 const content = {
@@ -50,6 +50,21 @@ const IntroSection = () => {
         restDelta: 0.001
     });
 
+    const [isMobile, setIsMobile] = useState(false);
+    useEffect(() => {
+        const checkMobile = () => setIsMobile(window.innerWidth < 768);
+        checkMobile();
+        window.addEventListener('resize', checkMobile);
+        return () => window.removeEventListener('resize', checkMobile);
+    }, []);
+
+    // Offset the content vertically as streaming progresses to keep active text in view
+    const contentY = useTransform(
+        smoothProgress,
+        [0, 0.2, 0.5, 0.8, 1],
+        isMobile ? ["12vh", "0vh", "-20vh", "-45vh", "-60vh"] : ["0vh", "0vh", "0vh", "0vh", "0vh"]
+    );
+
     return (
         <section ref={containerRef} className="relative h-[600vh] bg-[#0D1117] font-mono text-white/80 selection:bg-blue-500/30">
             <div className="sticky top-0 h-screen w-full flex flex-col justify-center px-6 md:px-24 lg:px-40 overflow-hidden">
@@ -58,16 +73,19 @@ const IntroSection = () => {
                 <motion.div 
                     initial={{ opacity: 0, x: -20 }}
                     whileInView={{ opacity: 1, x: 0 }}
-                    className="mb-12 flex items-center gap-4"
+                    className="mb-8 md:mb-12 flex items-center justify-center md:justify-start gap-4"
                 >
-                    <div className="h-px w-8 bg-blue-500/50" />
+                    <div className="hidden md:block h-px w-8 bg-blue-500/50" />
                     <span className="text-blue-500 font-bold tracking-[0.2em] text-sm uppercase">About Me</span>
-                    <div className="h-px flex-grow bg-white/5" />
+                    <div className="hidden md:block h-px flex-grow bg-white/5" />
                 </motion.div>
 
-                <div className="space-y-10 max-w-5xl">
+                <motion.div 
+                    style={{ y: contentY }}
+                    className="space-y-6 md:space-y-10 max-w-5xl text-center md:text-left"
+                >
                     {/* Intro Paragraph */}
-                    <div className="text-xl md:text-2xl leading-relaxed font-medium text-white/90">
+                    <div className="text-lg md:text-2xl leading-relaxed font-medium text-white/90">
                         <TextStream text={content.intro} progress={smoothProgress} range={[0, 0.2]} />
                     </div>
 
@@ -77,7 +95,7 @@ const IntroSection = () => {
                             const start = 0.25 + (i * 0.06);
                             const end = start + 0.06;
                             return (
-                                <div key={i} className="flex flex-col gap-1 border-l border-white/5 pl-4 hover:border-blue-500/30 transition-colors duration-300">
+                                <div key={i} className="flex flex-col gap-1 items-center md:items-start md:border-l border-white/5 md:pl-4 hover:border-blue-500/30 transition-colors duration-300">
                                     <span className="text-blue-400/50 text-xs font-bold uppercase tracking-widest">{skill.label}</span>
                                     <span className="leading-snug">
                                         <TextStream text={skill.value} progress={smoothProgress} range={[start, end]} />
@@ -89,7 +107,7 @@ const IntroSection = () => {
 
                     {/* Recently/Lately Section */}
                     <div className="pt-8 border-t border-white/5">
-                        <h4 className="text-sm font-bold text-blue-400/50 uppercase tracking-widest mb-6 flex items-center gap-2">
+                        <h4 className="text-sm font-bold text-blue-400/50 uppercase tracking-widest mb-6 flex items-center justify-center md:justify-start gap-2">
                             Lately
                         </h4>
                         <div className="space-y-3 text-lg opacity-80">
@@ -97,15 +115,15 @@ const IntroSection = () => {
                                 const start = 0.75 + (i * 0.07);
                                 const end = start + 0.07;
                                 return (
-                                    <div key={i} className="flex items-start gap-4">
-                                        <span className="text-blue-500/30 mt-1.5">➜</span>
+                                    <div key={i} className="flex items-start justify-center md:justify-start gap-4">
+                                        <span className="hidden md:inline text-blue-500/30 mt-1.5">➜</span>
                                         <TextStream text={item} progress={smoothProgress} range={[start, end]} />
                                     </div>
                                 );
                             })}
                         </div>
                     </div>
-                </div>
+                </motion.div>
 
                 {/* Simplified Bottom Progress Indicator */}
                 <div className="absolute bottom-12 right-12 flex items-center gap-4 text-[10px] uppercase tracking-[0.3em] font-bold text-white/10">
