@@ -10,7 +10,7 @@ const DockComp = () => {
         { icon: <Folder size={24} color="white" strokeWidth={2.5} />, label: 'Projects', onClick: () => navigate('/projects') },
         { icon: <BookOpen size={24} color="white" strokeWidth={2.5} />, label: 'Blogs', onClick: () => navigate('/blogs') },
         { icon: <Trophy size={24} color="white" strokeWidth={2.5} />, label: 'Achievements', onClick: () => navigate('/achievements') },
-        { icon: <FileText size={24} color="white" strokeWidth={2.5} />, label: 'Resume', onClick: () => window.open('https://drive.google.com/file/d/1ygBlfWW2AL3rd8YXxCXrQWABzklvgMDb/view?usp=sharing', '_blank') },
+        { icon: <FileText size={24} color="white" strokeWidth={2.5} />, label: 'Resume', onClick: () => window.open('https://drive.google.com/file/d/1i9Rjj0JUh2RSKujRS6btRYeZHylArHQl/view?usp=sharing', '_blank') },
     ];
 
     return (
