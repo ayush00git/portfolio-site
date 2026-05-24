@@ -1,5 +1,5 @@
 import React, { useRef, useEffect, useState } from 'react';
-import { Database, Terminal, Layout, Sparkles, ArrowUpRight, Square, Command } from 'lucide-react';
+import { Database, Terminal, ArrowUpRight, Square } from 'lucide-react';
 
 const SkillsSection = () => {
     const sectionRef = useRef(null);
@@ -15,14 +15,17 @@ const SkillsSection = () => {
             color: "#ff0080", // Pink
             icon: <Database size={48} />,
             stack: [
+                { name: "Gin", type: "Framework" },
+                { name: "gRPC", type: "Server" },
+                { name: "Postgres", type: "Database" },
+                { name: "GORM", type: "Client" },
                 { name: "Node.js", type: "Runtime" },
                 { name: "Express.js", type: "Framework" },
                 { name: "MongoDB", type: "Database" },
                 { name: "REST API", type: "Arch" },
                 { name: "WebSockets", type: "Realtime" },
                 { name: "Microservices", type: "Arch" },
-                { name: "EJS (SSR)", type: "Template" },
-                { name: "Gin", type: "Framework" }
+                { name: "EJS (SSR)", type: "Template" }
             ]
         },
         {
@@ -39,45 +42,6 @@ const SkillsSection = () => {
                 { name: "Nginx", type: "Server" },
                 { name: "GitHub CI/CD", type: "DevOps" },
                 { name: "Postman", type: "Testing" },
-            ]
-        },
-        {
-            id: '03',
-            title: "CLI DEVELOPMENT",
-            subtitle: "CLI & Go Tools",
-            description: "Building powerful CLI applications and tools using Go's ecosystem.",
-            color: "#00ADD8", // Cyan/Blue
-            icon: <Command size={48} />,
-            stack: [
-                { name: "Cobra", type: "Library" },
-                { name: "Viper", type: "Config" }
-            ]
-        },
-        {
-            id: '04',
-            title: "INTERFACE",
-            subtitle: "Frontend and UI/UX",
-            description: "I barely code frontend, learned these when I used to convert my figma designs to code .",
-            color: "#0070f3", // Blue
-            icon: <Layout size={48} />,
-            stack: [
-                { name: "HTML", type: "Markup" },
-                { name: "CSS", type: "Style" },
-                { name: "Tailwind", type: "Framework" },
-                { name: "Figma", type: "Design" }
-            ]
-        },
-        {
-            id: '05',
-            title: "VIBE CODING",
-            subtitle: "Vibe Coding",
-            description: "Literally build anything you want, just need to have a knowledge of the folder structure.",
-            color: "#f5a623", // Orange
-            icon: <Sparkles size={48} />,
-            stack: [
-                { name: "Next.js", type: "Web" },
-                { name: "React Native", type: "Mobile" },
-                { name: "React", type: "Lib" }
             ]
         }
     ];

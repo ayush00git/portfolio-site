@@ -5,11 +5,11 @@ const content = {
     intro: "I'm a student developer with a deep curiosity for Backend Core, Linux, System Design and Open Source. While my primary focus is on building robust systems, I love switching to \"Vibe Coding\" mode for UI/UX design as a creative break.",
     skills: [
         { label: "Languages", value: "Golang, Javascript, Typescript, Shell Script, C++, C, Python" },
-        { label: "Web/API", value: "Go (net/http), Gin, gRPC, Node.js, Express.js, REST API, WebSockets, Microservices" },
+        { label: "Web/API", value: "Gin, gRPC (Server), Postgres, GORM (Client), Go (net/http), Node.js, Express.js, REST API, WebSockets, Microservices" },
         { label: "CLI Dev", value: "Cobra, Viper" },
         { label: "CS Fundamentals", value: "OOPs, Serialization, FDL (IDL), Monolith & Microservices Architecture" },
         { label: "Cloud/DevOps", value: "AWS (EC2, S3), Github, Docker, Linux, Nginx, Redis" },
-        { label: "DB & Tools", value: "MongoDB, Git, Figma, Postman" },
+        { label: "DB & Tools", value: "Postgres, MongoDB, Git, Figma, Postman" },
         { label: "Frontend", value: "React, React Native, Next.js" }
     ],
     lately: [
