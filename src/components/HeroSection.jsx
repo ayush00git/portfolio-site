@@ -75,7 +75,7 @@ const HeroSection = () => {
                     LINKEDIN
                 </a>
                 <a
-                    href="https://drive.google.com/file/d/1ygBlfWW2AL3rd8YXxCXrQWABzklvgMDb/view?usp=sharing"
+                    href="https://drive.google.com/file/d/1hocYWUEIPINgFh6mUfeMImRo1ork7KJz/view?usp=sharing"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-white text-xl font-medium tracking-wide transition-opacity hover:opacity-70"
