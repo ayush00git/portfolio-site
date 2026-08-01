@@ -114,9 +114,6 @@ const Marquee = ({ group, i, vel }) => {
 
   return (
     <div className="relative overflow-hidden border-t border-[#0D1117]/12 py-[0.7vh]">
-      <span className="absolute left-[1vw] top-1/2 -translate-y-1/2 z-10 font-jb text-[9px] tracking-[0.3em] uppercase text-[#0D1117]/40 bg-[#F4F2ED] pr-4">
-        {group.id} {group.label}
-      </span>
       <div ref={inner} className="flex w-max whitespace-nowrap will-change-transform">
         {run.map((item, k) => (
           <span
@@ -155,8 +152,7 @@ const ProjectPage = () => {
     <div className="film-grain relative bg-[#F4F2ED] text-[#0D1117] selection:bg-[#FF3D00] selection:text-white">
       {/* ── Masthead ── */}
       <header className="relative px-[4vw] pt-[16vh] pb-[8vh]">
-        <div className="flex items-start justify-between font-jb text-[10px] tracking-[0.35em] uppercase text-[#0D1117]/45">
-          <span>index of work · 2024—2026</span>
+        <div className="flex items-start justify-end font-jb text-[10px] tracking-[0.35em] uppercase text-[#0D1117]/45">
           <span>[{String(projects.length + vibeProjects.length).padStart(2, '0')}].0 entries</span>
         </div>
 
@@ -172,7 +168,7 @@ const ProjectPage = () => {
         </h1>
 
         <p className="mt-[6vh] max-w-md text-[#0D1117]/60 leading-relaxed">
-          backend systems, open source and the occasional weekend build. hover an entry to read it.
+          backend systems, open source and the occasional weekend build.
         </p>
       </header>
 
@@ -228,8 +224,7 @@ const ProjectPage = () => {
 
       {/* ── Cut to ink for the b-roll ── */}
       <section className="bg-[#0D1117] text-[#F4F2ED] px-[4vw] py-[12vh]">
-        <div className="flex items-start justify-between font-jb text-[10px] tracking-[0.35em] uppercase text-[#F4F2ED]/45">
-          <span>b-roll · vibe coded</span>
+        <div className="flex items-start justify-end font-jb text-[10px] tracking-[0.35em] uppercase text-[#F4F2ED]/45">
           <span>shipped fast, ai in the loop</span>
         </div>
         <h2 className="mt-[4vh] mb-[6vh] font-display text-[11vw] leading-[0.86] lowercase tracking-[-0.045em]">
@@ -243,9 +238,8 @@ const ProjectPage = () => {
 
       {/* ── Skills, as marquee bands ── */}
       <section className="py-[10vh]">
-        <div className="px-[4vw] mb-[4vh] flex items-baseline justify-between font-jb text-[10px] tracking-[0.35em] uppercase text-[#0D1117]/45">
+        <div className="px-[4vw] mb-[4vh] font-jb text-[10px] tracking-[0.35em] uppercase text-[#0D1117]/45">
           <span>the toolkit</span>
-          <span>← scroll reverses the bands →</span>
         </div>
         {skillGroups.map((group, i) => (
           <Marquee key={group.id} group={group} i={i} vel={vel} />
