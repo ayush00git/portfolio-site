@@ -3,7 +3,7 @@ import { Github, ArrowUpRight } from 'lucide-react';
 import gsap from 'gsap';
 import { projects, vibeProjects, skillGroups } from '../data/projects';
 
-/* ── EXPERIMENT: "INDEX" ───────────────────────────────────────────────────
+/* ── THE WORK INDEX ────────────────────────────────────────────────────────
    Editorial, paper-first. The work as a printed index: numbered rows of very
    large type, a sticky reading column, technical coordinate marks. Scroll
    velocity shears the rows and drives the skill marquees, which reverse with
