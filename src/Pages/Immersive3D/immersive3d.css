@@ -1,0 +1,923 @@
+@import url('https://fonts.googleapis.com/css2?family=Hanken+Grotesk:ital,wght@0,200;0,300;0,400;0,500;0,600;1,300&family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400;1,500&display=swap');
+
+/* ============================================================
+   THE PAVILION — a quiet architectural walk-through.
+   Philosophy: restraint. Concrete, ivory, walnut, black steel.
+   Nothing bounces. Nothing glows unless touched.
+   ============================================================ */
+
+.pav {
+  --pav-bg: #161514;
+  --pav-concrete: #1e1c1a;
+  --pav-concrete-lt: #262320;
+  --pav-ivory: #e7e2d9;
+  --pav-dim: #9a938a;
+  --pav-faint: #5d5852;
+  --pav-line: rgba(231, 226, 217, 0.12);
+  --pav-amber: #c29a6b;
+  --pav-blue: #8aa3b5;
+  --pav-walnut: #6e5640;
+  --pav-sans: 'Hanken Grotesk', sans-serif;
+  --pav-serif: 'Cormorant Garamond', serif;
+
+  background: var(--pav-bg);
+  color: var(--pav-ivory);
+  font-family: var(--pav-sans);
+  font-weight: 300;
+}
+
+.pav *::selection {
+  background: var(--pav-amber);
+  color: #14110d;
+}
+
+/* ---------- viewport & world ---------- */
+
+.pav-viewport {
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+  perspective: 1600px;
+  perspective-origin: 50% 48%;
+  background:
+    radial-gradient(ellipse 90% 70% at 50% 30%, #1b1917, var(--pav-bg) 80%);
+}
+
+.pav-world {
+  position: absolute;
+  inset: 0;
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+
+/* ---------- the architecture: floor / ceiling / walls ---------- */
+
+.pav-plane {
+  position: absolute;
+  backface-visibility: visible;
+  pointer-events: none;
+}
+
+.pav-floor {
+  top: calc(50% + 340px);
+  left: 50%;
+  width: 2600px;
+  height: 17000px;
+  transform-origin: top center;
+  transform: translateX(-50%) translateZ(900px) rotateX(-90deg);
+  background:
+    /* warm pools of light beneath each skylight (one per room) */
+    repeating-linear-gradient(
+      to bottom,
+      rgba(194, 154, 107, 0.05) 0px,
+      transparent 320px,
+      transparent 980px,
+      rgba(194, 154, 107, 0.05) 1300px
+    ),
+    /* stone slab seams */
+    repeating-linear-gradient(
+      to bottom,
+      transparent 0px,
+      transparent 433px,
+      rgba(0, 0, 0, 0.4) 434px,
+      transparent 435px
+    ),
+    repeating-linear-gradient(
+      to right,
+      transparent 0px,
+      transparent 432px,
+      rgba(0, 0, 0, 0.35) 433px,
+      transparent 434px
+    ),
+    linear-gradient(to bottom, #232220, #121110);
+}
+
+.pav-ceiling {
+  top: calc(50% - 400px);
+  left: 50%;
+  width: 2600px;
+  height: 17000px;
+  transform-origin: top center;
+  transform: translateX(-50%) translateZ(900px) rotateX(-90deg);
+  background:
+    /* skylight bands — soft daylight, one per room */
+    repeating-linear-gradient(
+      to bottom,
+      transparent 0px,
+      transparent 480px,
+      rgba(231, 226, 217, 0.10) 560px,
+      rgba(231, 226, 217, 0.16) 620px,
+      rgba(231, 226, 217, 0.10) 680px,
+      transparent 760px,
+      transparent 1300px
+    ),
+    /* coffer seams */
+    repeating-linear-gradient(
+      to bottom,
+      transparent 0px,
+      transparent 649px,
+      rgba(0, 0, 0, 0.5) 650px,
+      transparent 651px
+    ),
+    linear-gradient(to bottom, #1b1a18, #100f0e);
+}
+
+.pav-wall {
+  top: 50%;
+  height: 740px;
+  width: 17000px;
+  transform-origin: left center;
+}
+
+.pav-wall.left {
+  left: calc(50% - 1300px);
+  transform: translateY(-50%) translateZ(900px) rotateY(90deg);
+}
+
+.pav-wall.right {
+  left: calc(50% + 1300px);
+  transform: translateY(-50%) translateZ(900px) rotateY(90deg);
+}
+
+.pav-wall.left,
+.pav-wall.right {
+  background:
+    /* light wash spilling down from skylights */
+    repeating-linear-gradient(
+      to right,
+      transparent 0px,
+      transparent 480px,
+      rgba(231, 226, 217, 0.045) 580px,
+      rgba(231, 226, 217, 0.045) 660px,
+      transparent 760px,
+      transparent 1300px
+    ),
+    /* board-form concrete: horizontal striation */
+    repeating-linear-gradient(
+      to bottom,
+      rgba(255, 255, 255, 0.012) 0px,
+      transparent 3px,
+      transparent 88px,
+      rgba(0, 0, 0, 0.28) 89px,
+      transparent 91px
+    ),
+    /* panel joints along the walk */
+    repeating-linear-gradient(
+      to right,
+      transparent 0px,
+      transparent 648px,
+      rgba(0, 0, 0, 0.45) 650px,
+      transparent 652px
+    ),
+    linear-gradient(to bottom, #232120 0%, #1c1a18 60%, #151312 100%);
+}
+
+/* hidden light strip where wall meets floor */
+.pav-wall.left::after,
+.pav-wall.right::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 3px;
+  background: linear-gradient(to top, rgba(194, 154, 107, 0.22), transparent);
+}
+
+/* ---------- stations (rooms) ---------- */
+
+.pav-station {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: min(88vw, 1000px);
+  transform-style: preserve-3d;
+  will-change: opacity;
+}
+
+/* content reveals as you approach — slow, no overshoot */
+.pav-reveal {
+  opacity: 0;
+  transform: translateY(26px);
+  transition: opacity 1.4s cubic-bezier(0.22, 0.6, 0.36, 1),
+              transform 1.4s cubic-bezier(0.22, 0.6, 0.36, 1);
+}
+
+.pav-station.near .pav-reveal {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.pav-station.near .pav-reveal.d1 { transition-delay: 0.18s; }
+.pav-station.near .pav-reveal.d2 { transition-delay: 0.36s; }
+.pav-station.near .pav-reveal.d3 { transition-delay: 0.54s; }
+
+/* ---------- shared room furniture ---------- */
+
+.pav-roomno {
+  font-size: 11px;
+  font-weight: 400;
+  letter-spacing: 0.55em;
+  text-transform: uppercase;
+  color: var(--pav-faint);
+  margin-bottom: 30px;
+}
+
+.pav-roomno b {
+  font-weight: 500;
+  color: var(--pav-dim);
+}
+
+.pav-rule {
+  width: 56px;
+  height: 1px;
+  background: var(--pav-line);
+  margin: 34px 0;
+}
+
+/* ---------- opening wall ---------- */
+
+.pav-doors {
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  overflow: hidden;
+}
+
+.pav-door {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 51%;
+  will-change: transform;
+  background:
+    repeating-linear-gradient(
+      to bottom,
+      rgba(255, 255, 255, 0.014) 0px,
+      transparent 3px,
+      transparent 110px,
+      rgba(0, 0, 0, 0.3) 111px,
+      transparent 113px
+    ),
+    linear-gradient(165deg, #242220 0%, #1b1918 55%, #131211 100%);
+}
+
+.pav-door.l { left: 0; box-shadow: inset -1px 0 0 rgba(0,0,0,0.6); }
+.pav-door.r { right: 0; box-shadow: inset 1px 0 0 rgba(255,255,255,0.03); }
+
+/* the seam of light between the parting halves */
+.pav-door.l::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: -1px;
+  width: 1px;
+  background: rgba(231, 226, 217, 0.25);
+}
+
+.pav-epigraph {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 0 8vw;
+  will-change: opacity;
+}
+
+.pav-epigraph blockquote {
+  font-family: var(--pav-serif);
+  font-style: italic;
+  font-weight: 400;
+  font-size: clamp(22px, 3.2vw, 38px);
+  line-height: 1.5;
+  color: var(--pav-ivory);
+  margin: 0;
+  max-width: 22em;
+  opacity: 0;
+  animation: pav-fadein 2.8s ease 0.8s forwards;
+}
+
+.pav-epigraph .hint {
+  margin-top: 56px;
+  font-size: 10px;
+  letter-spacing: 0.5em;
+  text-transform: uppercase;
+  color: var(--pav-faint);
+  opacity: 0;
+  animation: pav-fadein 2.4s ease 2.4s forwards;
+}
+
+@keyframes pav-fadein {
+  to { opacity: 1; }
+}
+
+/* ---------- room: threshold ---------- */
+
+.pav-threshold {
+  text-align: center;
+}
+
+.pav-threshold .est {
+  font-size: 10px;
+  letter-spacing: 0.6em;
+  text-transform: uppercase;
+  color: var(--pav-faint);
+  margin-bottom: 36px;
+}
+
+.pav-threshold h1 {
+  font-weight: 200;
+  font-size: clamp(38px, 6.5vw, 84px);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--pav-ivory);
+  margin: 0;
+  line-height: 1.1;
+}
+
+.pav-threshold .role {
+  margin-top: 30px;
+  font-size: 12px;
+  font-weight: 400;
+  letter-spacing: 0.45em;
+  text-transform: uppercase;
+  color: var(--pav-dim);
+}
+
+.pav-threshold .role span { color: var(--pav-amber); }
+
+/* ---------- room: who ---------- */
+
+.pav-who .lead {
+  font-weight: 200;
+  font-size: clamp(20px, 2.6vw, 32px);
+  line-height: 1.75;
+  color: var(--pav-ivory);
+  max-width: 30em;
+  margin: 0;
+}
+
+.pav-who .lead em {
+  font-family: var(--pav-serif);
+  font-style: italic;
+  font-size: 1.08em;
+  color: var(--pav-amber);
+}
+
+.pav-who .studies {
+  display: grid;
+  gap: 14px;
+  padding: 0;
+  margin: 0;
+}
+
+.pav-who .studies li {
+  list-style: none;
+  display: flex;
+  align-items: baseline;
+  gap: 18px;
+  font-size: 14px;
+  font-weight: 300;
+  color: var(--pav-dim);
+  letter-spacing: 0.04em;
+}
+
+.pav-who .studies li::before {
+  content: '';
+  width: 22px;
+  height: 1px;
+  background: var(--pav-faint);
+  flex: none;
+  transform: translateY(-4px);
+}
+
+.pav-who .studies-cap {
+  font-size: 10px;
+  letter-spacing: 0.5em;
+  text-transform: uppercase;
+  color: var(--pav-faint);
+  margin-bottom: 22px;
+}
+
+/* ---------- room: craft (the workbench) ---------- */
+
+.pav-bench {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1px;
+  background: var(--pav-line);
+  border: 1px solid var(--pav-line);
+}
+
+.pav-drawer {
+  background: var(--pav-concrete);
+  padding: 34px 34px 38px;
+}
+
+.pav-drawer h3 {
+  font-weight: 400;
+  font-size: 13px;
+  letter-spacing: 0.4em;
+  text-transform: uppercase;
+  color: var(--pav-ivory);
+  margin: 0 0 4px;
+}
+
+.pav-drawer .mat {
+  font-family: var(--pav-serif);
+  font-style: italic;
+  font-size: 14px;
+  color: var(--pav-faint);
+  margin-bottom: 26px;
+}
+
+.pav-tools {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0;
+  margin: 0 -8px;
+}
+
+.pav-tools span {
+  font-size: 12.5px;
+  font-weight: 300;
+  letter-spacing: 0.06em;
+  color: var(--pav-dim);
+  padding: 7px 8px;
+  margin: 1px 4px;
+  border-bottom: 1px solid transparent;
+  transition: color 0.5s ease, border-color 0.5s ease;
+  cursor: default;
+}
+
+.pav-tools span:hover {
+  color: var(--pav-ivory);
+  border-bottom-color: var(--pav-amber);
+}
+
+.pav-langs {
+  margin-top: 30px;
+  text-align: center;
+  font-size: 12px;
+  font-weight: 300;
+  letter-spacing: 0.14em;
+  color: var(--pav-faint);
+}
+
+.pav-langs b {
+  font-weight: 400;
+  color: var(--pav-dim);
+}
+
+/* ---------- gallery gate ---------- */
+
+.pav-gate {
+  text-align: center;
+}
+
+.pav-gate h2 {
+  font-weight: 200;
+  font-size: clamp(30px, 4.6vw, 58px);
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--pav-ivory);
+  margin: 0;
+}
+
+.pav-gate .sub {
+  margin-top: 26px;
+  font-family: var(--pav-serif);
+  font-style: italic;
+  font-size: 16px;
+  color: var(--pav-faint);
+}
+
+/* ---------- exhibits (projects) ---------- */
+
+.pav-exhibit {
+  width: min(84vw, 780px);
+  transform-style: preserve-3d;
+}
+
+.pav-frame {
+  position: relative;
+  border: 1px solid #0c0b0a;
+  outline: 1px solid rgba(231, 226, 217, 0.07);
+  background: #0e0d0c;
+  padding: 14px;
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.55);
+}
+
+.pav-frame img {
+  display: block;
+  width: 100%;
+  height: 320px;
+  object-fit: cover;
+  filter: saturate(0.7) contrast(0.96) brightness(0.92);
+  transition: filter 1.2s ease;
+}
+
+.pav-exhibit:hover .pav-frame img {
+  filter: saturate(0.92) contrast(1) brightness(1);
+}
+
+/* picture light above the frame */
+.pav-frame::before {
+  content: '';
+  position: absolute;
+  top: -1px;
+  left: 12%;
+  right: 12%;
+  height: 70px;
+  background: linear-gradient(to bottom, rgba(231, 226, 217, 0.07), transparent);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 1.2s ease;
+}
+
+.pav-exhibit:hover .pav-frame::before { opacity: 1; }
+
+/* museum label */
+.pav-label {
+  margin-top: 22px;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 26px;
+  align-items: start;
+}
+
+.pav-label .no {
+  font-family: var(--pav-serif);
+  font-size: 30px;
+  font-weight: 400;
+  color: var(--pav-faint);
+  line-height: 1;
+  padding-top: 3px;
+}
+
+.pav-label h3 {
+  font-weight: 400;
+  font-size: 19px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--pav-ivory);
+  margin: 0 0 3px;
+}
+
+.pav-label .medium {
+  font-family: var(--pav-serif);
+  font-style: italic;
+  font-size: 14px;
+  color: var(--pav-faint);
+  margin-bottom: 14px;
+}
+
+.pav-label p {
+  font-size: 13.5px;
+  font-weight: 300;
+  line-height: 1.7;
+  color: var(--pav-dim);
+  max-width: 52ch;
+  margin: 0 0 14px;
+}
+
+.pav-label .mats {
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  color: var(--pav-faint);
+  margin-bottom: 16px;
+}
+
+.pav-label .links {
+  display: flex;
+  gap: 30px;
+}
+
+.pav-label .links a {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--pav-dim);
+  text-decoration: none;
+  padding-bottom: 3px;
+  border-bottom: 1px solid var(--pav-line);
+  transition: color 0.5s ease, border-color 0.5s ease;
+}
+
+.pav-label .links a:hover {
+  color: var(--pav-ivory);
+  border-bottom-color: var(--pav-amber);
+}
+
+/* ---------- honors ---------- */
+
+.pav-honors .plaques {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  background: var(--pav-line);
+  border: 1px solid var(--pav-line);
+}
+
+.pav-plaque {
+  background: linear-gradient(170deg, #211f1d, #181615);
+  padding: 30px 28px 26px;
+  min-height: 230px;
+  display: flex;
+  flex-direction: column;
+  text-decoration: none;
+  color: inherit;
+  transition: background 0.7s ease;
+}
+
+.pav-plaque:hover {
+  background: linear-gradient(170deg, #262421, #1b1917);
+}
+
+.pav-plaque .date {
+  font-size: 10px;
+  letter-spacing: 0.4em;
+  text-transform: uppercase;
+  color: var(--pav-faint);
+  margin-bottom: 22px;
+}
+
+.pav-plaque h4 {
+  font-weight: 400;
+  font-size: 16px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--pav-ivory);
+  margin: 0 0 4px;
+}
+
+.pav-plaque .role {
+  font-family: var(--pav-serif);
+  font-style: italic;
+  font-size: 14px;
+  color: var(--pav-amber);
+  margin-bottom: 16px;
+}
+
+.pav-plaque p {
+  font-size: 12.5px;
+  font-weight: 300;
+  line-height: 1.65;
+  color: var(--pav-dim);
+  margin: 0;
+  flex: 1;
+}
+
+.pav-plaque .ft {
+  margin-top: 20px;
+  padding-top: 14px;
+  border-top: 1px solid var(--pav-line);
+  font-size: 10px;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--pav-faint);
+  display: flex;
+  justify-content: space-between;
+  transition: color 0.5s ease;
+}
+
+.pav-plaque:hover .ft { color: var(--pav-dim); }
+
+/* ---------- the last room ---------- */
+
+.pav-finale {
+  text-align: center;
+}
+
+/* the drafting table — a simple monolith under the skylight */
+.pav-table {
+  width: 300px;
+  height: 8px;
+  margin: 0 auto 8px;
+  background: linear-gradient(to bottom, var(--pav-walnut), #4a3a2c);
+  box-shadow:
+    0 60px 80px -20px rgba(194, 154, 107, 0.08),
+    0 2px 0 rgba(0, 0, 0, 0.6);
+  position: relative;
+}
+
+.pav-table::before,
+.pav-table::after {
+  content: '';
+  position: absolute;
+  top: 8px;
+  width: 5px;
+  height: 74px;
+  background: linear-gradient(to bottom, #111010, #0a0909);
+}
+
+.pav-table::before { left: 22px; }
+.pav-table::after { right: 22px; }
+
+/* the unfinished blueprint resting on it */
+.pav-blueprint {
+  width: 160px;
+  height: 36px;
+  margin: 0 auto;
+  transform: translateY(-44px);
+  background:
+    repeating-linear-gradient(to right, rgba(138, 163, 181, 0.25) 0 1px, transparent 1px 20px),
+    repeating-linear-gradient(to bottom, rgba(138, 163, 181, 0.25) 0 1px, transparent 1px 12px),
+    rgba(138, 163, 181, 0.06);
+  border: 1px solid rgba(138, 163, 181, 0.2);
+}
+
+.pav-finale blockquote {
+  font-family: var(--pav-serif);
+  font-style: italic;
+  font-weight: 400;
+  font-size: clamp(20px, 2.8vw, 30px);
+  line-height: 1.6;
+  color: var(--pav-ivory);
+  margin: 64px auto 56px;
+  max-width: 24em;
+}
+
+.pav-finale .console {
+  display: inline-flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1px;
+  background: var(--pav-line);
+  border: 1px solid var(--pav-line);
+}
+
+.pav-finale .console a {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  padding: 16px 26px;
+  background: var(--pav-concrete);
+  color: var(--pav-dim);
+  text-decoration: none;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  transition: color 0.6s ease, background 0.6s ease, box-shadow 0.6s ease;
+}
+
+.pav-finale .console a:hover {
+  color: var(--pav-ivory);
+  background: var(--pav-concrete-lt);
+  box-shadow: inset 0 -2px 0 var(--pav-amber);
+}
+
+.pav-finale .colophon {
+  margin-top: 70px;
+  font-size: 10px;
+  letter-spacing: 0.5em;
+  text-transform: uppercase;
+  color: rgba(93, 88, 82, 0.65);
+}
+
+/* ---------- dust motes ---------- */
+
+.pav-dust {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 30;
+}
+
+/* ---------- interface (almost invisible) ---------- */
+
+.pav-ui {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 50;
+}
+
+.pav-wordmark {
+  position: absolute;
+  top: 34px;
+  left: 40px;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.55em;
+  text-transform: uppercase;
+  color: var(--pav-dim);
+}
+
+.pav-roomname {
+  position: absolute;
+  bottom: 34px;
+  left: 40px;
+  font-size: 10px;
+  font-weight: 400;
+  letter-spacing: 0.45em;
+  text-transform: uppercase;
+  color: var(--pav-faint);
+  transition: opacity 0.8s ease;
+}
+
+.pav-roomname b {
+  font-weight: 500;
+  color: var(--pav-dim);
+  margin-right: 14px;
+}
+
+/* hairline progress along the very bottom */
+.pav-progress {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 1px;
+  background: rgba(231, 226, 217, 0.06);
+}
+
+.pav-progress i {
+  display: block;
+  height: 100%;
+  background: rgba(194, 154, 107, 0.5);
+  transform-origin: left;
+  will-change: transform;
+}
+
+/* discreet index, right edge */
+.pav-index {
+  position: absolute;
+  right: 40px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  pointer-events: auto;
+  text-align: right;
+}
+
+.pav-index button {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  font-family: var(--pav-serif);
+  font-size: 13px;
+  color: var(--pav-faint);
+  letter-spacing: 0.1em;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 12px;
+  transition: color 0.6s ease;
+}
+
+.pav-index button .nm {
+  font-family: var(--pav-sans);
+  font-size: 9px;
+  letter-spacing: 0.4em;
+  text-transform: uppercase;
+  opacity: 0;
+  transform: translateX(6px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.pav-index button:hover .nm,
+.pav-index button.on .nm { opacity: 1; transform: translateX(0); }
+
+.pav-index button.on { color: var(--pav-amber); }
+
+/* gentle vignette to frame the composition */
+.pav-vignette {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 40;
+  background: radial-gradient(ellipse 110% 90% at 50% 45%, transparent 55%, rgba(10, 9, 8, 0.55));
+}
+
+/* ---------- responsive ---------- */
+
+@media (max-width: 880px) {
+  .pav-index { display: none; }
+  .pav-bench { grid-template-columns: 1fr; }
+  .pav-honors .plaques { grid-template-columns: 1fr; }
+  .pav-plaque { min-height: 0; }
+  .pav-label { grid-template-columns: 1fr; gap: 10px; }
+  .pav-label .no { display: none; }
+  .pav-frame img { height: 200px; }
+  .pav-wordmark { left: 24px; }
+  .pav-roomname { left: 24px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pav-reveal { transition: opacity 0.6s ease; transform: none; }
+  .pav-epigraph blockquote,
+  .pav-epigraph .hint { animation-duration: 0.6s; }
+}

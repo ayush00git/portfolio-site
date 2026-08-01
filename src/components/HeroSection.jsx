@@ -114,18 +114,6 @@ const HeroSection = () => {
                 />
             </div>
 
-            {/* Bottom Section */}
-            <div className="absolute bottom-0 left-0 right-0 flex justify-between items-center px-10 py-8 z-10 pointer-events-none">
-                <div className="flex flex-col gap-1 text-white text-xl font-medium tracking-wide pointer-events-auto">
-                    <span>BACKDEV</span>
-                    <span>DESIGNER</span>
-                </div>
-
-                {/* <div className="text-white text-xl font-medium tracking-wide pointer-events-auto">
-                    <span>TECHNERD</span>
-                </div> */}
-            </div>
-
             {/* Invisible Drag Handle Layer (On Top) */}
             <div
                 className={`absolute left-0 right-0 z-20 ${isDragging ? 'cursor-move' : 'cursor-crosshair'

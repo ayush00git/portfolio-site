@@ -1,0 +1,283 @@
+/* THE TERMINAL ROOM — 2D layer.
+   Rules of the house: monochrome, 1px hard lines, zero gradients,
+   zero blur, zero rounded corners. */
+
+.t3d {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: #050505;
+  font-family: 'JetBrains Mono', 'IBM Plex Mono', 'SFMono-Regular', Menlo,
+    Consolas, 'Liberation Mono', monospace;
+  color: #f4f4f4;
+  -webkit-font-smoothing: antialiased;
+  user-select: none;
+}
+
+/* ============ crosshair ============ */
+
+.t3d-cross {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  z-index: 200;
+  pointer-events: none;
+  opacity: 0;
+  mix-blend-mode: difference;
+}
+.t3d-cross.on {
+  opacity: 1;
+}
+.t3d-cross i {
+  position: absolute;
+  background: #fff;
+}
+.t3d-cross .h {
+  width: 14px;
+  height: 2px;
+  transform: translate(-50%, -50%);
+}
+.t3d-cross .v {
+  width: 2px;
+  height: 14px;
+  transform: translate(-50%, -50%);
+}
+/* bracket corners — appear only when the terminal is in the sights */
+.t3d-cross .c {
+  position: absolute;
+  width: 9px;
+  height: 9px;
+  border: 2px solid #fff;
+  opacity: 0;
+}
+.t3d-cross .tl { transform: translate(-16px, -16px); border-right: 0; border-bottom: 0; }
+.t3d-cross .tr { transform: translate(7px, -16px); border-left: 0; border-bottom: 0; }
+.t3d-cross .bl { transform: translate(-16px, 7px); border-right: 0; border-top: 0; }
+.t3d-cross .br { transform: translate(7px, 7px); border-left: 0; border-top: 0; }
+.t3d-cross.hot .c {
+  opacity: 1;
+}
+.t3d-cross.hot .h,
+.t3d-cross.hot .v {
+  opacity: 0;
+}
+.t3d-cross .tag {
+  position: absolute;
+  top: 26px;
+  left: 0;
+  transform: translateX(-50%);
+  font-size: 12px;
+  letter-spacing: 0.22em;
+  white-space: nowrap;
+  opacity: 0;
+}
+.t3d-cross.hot .tag {
+  opacity: 1;
+}
+
+/* ============ hint strips ============ */
+
+.t3d-strip,
+.t3d-escape {
+  position: absolute;
+  left: 50%;
+  bottom: 28px;
+  transform: translateX(-50%);
+  z-index: 200;
+  display: flex;
+  gap: 36px;
+  font-size: 11px;
+  letter-spacing: 0.28em;
+  color: #888;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.25s steps(4);
+}
+.t3d-strip.on,
+.t3d-escape.on {
+  opacity: 1;
+}
+.t3d-escape {
+  color: #050505;
+  background: #f4f4f4;
+  padding: 10px 22px;
+  letter-spacing: 0.3em;
+  font-size: 12px;
+}
+
+/* ============ intro / pause card ============ */
+
+.t3d-enter {
+  position: absolute;
+  inset: 0;
+  z-index: 300;
+  background: rgba(5, 5, 5, 0.94);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 34px 42px;
+  cursor: pointer;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s steps(3);
+}
+.t3d-enter.on {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.t3d-enter header {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+  letter-spacing: 0.3em;
+  color: #aaa;
+  border-top: 1px solid #2c2c2c;
+  border-bottom: 1px solid #2c2c2c;
+  padding: 14px 2px;
+}
+
+.t3d-enter .mid {
+  text-align: center;
+}
+.t3d-enter h1 {
+  margin: 0;
+  font-size: clamp(56px, 11vw, 150px);
+  font-weight: 800;
+  line-height: 0.92;
+  letter-spacing: -0.02em;
+  color: #f4f4f4;
+}
+.t3d-enter p {
+  margin: 26px 0 0;
+  font-size: 12px;
+  letter-spacing: 0.42em;
+  color: #888;
+}
+.t3d-enter .cta {
+  display: inline-block;
+  margin-top: 40px;
+  padding: 16px 46px;
+  border: 1px solid #f4f4f4;
+  font-size: 13px;
+  letter-spacing: 0.4em;
+  color: #f4f4f4;
+}
+.t3d-enter.on:hover .cta {
+  background: #f4f4f4;
+  color: #050505;
+}
+
+.t3d-enter footer {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  border: 1px solid #2c2c2c;
+}
+.t3d-enter footer div {
+  padding: 16px 0 14px;
+  text-align: center;
+  border-right: 1px solid #2c2c2c;
+}
+.t3d-enter footer div:last-child {
+  border-right: 0;
+}
+.t3d-enter footer b {
+  display: block;
+  font-size: 14px;
+  letter-spacing: 0.18em;
+  color: #f4f4f4;
+}
+.t3d-enter footer span {
+  display: block;
+  margin-top: 6px;
+  font-size: 10px;
+  letter-spacing: 0.3em;
+  color: #777;
+}
+
+/* ============ wall typography (drei <Html transform>) ============ */
+
+.t3d-wall {
+  font-family: inherit;
+  font-weight: 800;
+  font-size: 120px;
+  letter-spacing: 0.14em;
+  white-space: nowrap;
+  color: #f4f4f4;
+  pointer-events: none;
+}
+.t3d-wall--name {
+  font-size: 190px;
+  letter-spacing: 0.1em;
+}
+.t3d-wall--label {
+  font-size: 64px;
+  letter-spacing: 0.5em;
+  color: #0d0d0d;
+}
+.t3d-wall--floor {
+  font-size: 56px;
+  letter-spacing: 0.3em;
+  color: #6e6e6e;
+}
+
+/* ============ the bash screen (drei <Html transform>) ============ */
+
+.crt {
+  width: 1080px;
+  height: 640px;
+  background: #000;
+  color: #e8e8e8;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  pointer-events: none;
+}
+.crt-head {
+  display: flex;
+  justify-content: space-between;
+  padding: 12px 22px;
+  font-size: 16px;
+  letter-spacing: 0.14em;
+  background: #f4f4f4;
+  color: #050505;
+  font-weight: 700;
+}
+.crt-body {
+  flex: 1;
+  padding: 22px 26px;
+  font-size: 19px;
+  line-height: 1.5;
+  overflow-y: hidden;
+  white-space: pre-wrap;
+  word-break: break-all;
+}
+.crt-line {
+  min-height: 1.5em;
+}
+.crt-line.dim { color: #7a7a7a; }
+.crt-line.ok { color: #ffffff; }
+.crt-line.err { color: #ffffff; background: #1c1c1c; }
+.crt-line.hint { color: #9a9a9a; }
+.crt-line.cmd { color: #ffffff; font-weight: 700; }
+.crt-line.hl {
+  background: #f4f4f4;
+  color: #000;
+  font-weight: 700;
+  display: inline-block;
+  padding: 0 6px;
+}
+.crt-caret {
+  display: inline-block;
+  width: 11px;
+  height: 1.15em;
+  background: #f4f4f4;
+  vertical-align: text-bottom;
+  margin-left: 2px;
+  animation: t3d-blink 1s steps(1) infinite;
+}
+@keyframes t3d-blink {
+  50% { opacity: 0; }
+}
