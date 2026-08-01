@@ -99,8 +99,9 @@ const Marquee = ({ group, i, vel }) => {
       const el = inner.current;
       if (!el) return;
       const half = el.scrollWidth / 2 || 1;
-      // Idle drift, plus a shove in whichever direction you're scrolling
-      x.current += dir * (0.4 + Math.abs(vel.current) * 9) + vel.current * dir * 6;
+      // Idle drift that the scroll can overpower and flip: scrolling back up
+      // drags the band the other way
+      x.current += dir * (0.5 + vel.current * 14);
       if (x.current <= -half) x.current += half;
       if (x.current >= 0) x.current -= half;
       el.style.transform = `translate3d(${x.current}px,0,0)`;
