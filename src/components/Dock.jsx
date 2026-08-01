@@ -31,7 +31,7 @@ function DockItem({ children, className = '', onClick, mouseX, spring, distance,
             onFocus={() => isHovered.set(1)}
             onBlur={() => isHovered.set(0)}
             onClick={onClick}
-            className={`relative inline-flex items-center justify-center rounded-full bg-[#060010] border-neutral-700 border-2 shadow-md ${className}`}
+            className={`relative inline-flex items-center justify-center rounded-full bg-[#161B22] border border-white/10 shadow-md transition-colors hover:bg-[#21262D] ${className}`}
             tabIndex={0}
             role="button"
             aria-haspopup="true"
@@ -115,7 +115,7 @@ export default function Dock({
                         isHovered.set(0);
                         mouseX.set(Infinity);
                     }}
-                    className={`${className} pointer-events-auto fixed bottom-8 left-1/2 transform -translate-x-1/2 flex items-end w-fit gap-4 rounded-2xl border border-white/20 pb-2 px-4 z-50 backdrop-blur-[40px] bg-gradient-to-br from-white/10 via-white/5 to-transparent shadow-[0_8px_32px_0_rgba(0,0,0,0.37)] before:absolute before:inset-0 before:rounded-2xl before:bg-gradient-to-br before:from-white/20 before:to-transparent before:opacity-20 before:pointer-events-none`}
+                    className={`${className} pointer-events-auto fixed bottom-8 left-1/2 transform -translate-x-1/2 flex items-end w-fit gap-3 rounded-full border border-white/10 pb-2 px-5 z-50 backdrop-blur-[40px] bg-[#0D1117]/92 shadow-[0_10px_40px_0_rgba(0,0,0,0.55)]`}
                     style={{ height: panelHeight }}
                     role="toolbar"
                     aria-label="Application dock"
