@@ -42,46 +42,16 @@ const HeroSection = () => {
             ref={containerRef}
             className="relative w-screen h-screen bg-[#0D1117] overflow-hidden flex items-center justify-center select-none"
         >
-            {/* Top Left - Name */}
-            <div className="absolute top-10 left-10 text-white text-2xl font-semibold tracking-wide leading-tight z-10">
-                <div>AYUSH</div>
-                <div>KUMAR</div>
-            </div>
-
-            {/* Top Right - Social Links */}
-            <div className="absolute top-10 right-10 flex flex-col gap-2 z-10">
-                <a
-                    href="https://github.com/ayush00git"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-white text-xl font-medium tracking-wide transition-opacity hover:opacity-70"
-                >
-                    GITHUB
-                </a>
-                <a
-                    href="https://www.instagram.com/ayyush_z/"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-white text-xl font-medium tracking-wide transition-opacity hover:opacity-70"
-                >
-                    INSTAGRAM
-                </a>
-                <a
-                    href="https://www.linkedin.com/in/ayush-kumar-368446246/"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-white text-xl font-medium tracking-wide transition-opacity hover:opacity-70"
-                >
-                    LINKEDIN
-                </a>
-                <a
-                    href="https://drive.google.com/file/d/1hocYWUEIPINgFh6mUfeMImRo1ork7KJz/view?usp=sharing"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-white text-xl font-medium tracking-wide transition-opacity hover:opacity-70"
-                >
-                    RESUME
-                </a>
+            {/* Top Left - Introduction */}
+            <div className="absolute top-10 left-10 z-10 max-w-md pointer-events-none">
+                <span className="font-jb text-[10px] tracking-[0.35em] uppercase text-white/40">
+                    about
+                </span>
+                <p className="mt-4 font-display text-white text-xl md:text-2xl leading-[1.35] lowercase tracking-tight">
+                    i'm ayush. i'm from himachal and i study cs at nit hamirpur.
+                    i write backend code, mostly go, and i spend more time on
+                    open source than on coursework.
+                </p>
             </div>
 
             {/* Background Text - Bad Script Font */}
