@@ -1,6 +1,7 @@
 "use client"
 
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useTransition } from 'react'
+import { AnimatePresence, motion } from 'motion/react'
 import { usePathname, useRouter } from 'next/navigation'
 import Dock from './Dock'
 import type { DockItemConfig } from './Dock'
@@ -10,6 +11,18 @@ export const DockComp: React.FC = () => {
   const pathname = usePathname()
   const onProjects = pathname === '/projects'
   const [compact, setCompact] = useState(false)
+  const [pending, startTransition] = useTransition()
+
+  // router.push does not prefetch the way <Link> does, so warm both routes up
+  // front; the transition then keeps `pending` true until the new page commits
+  useEffect(() => {
+    router.prefetch('/')
+    router.prefetch('/projects')
+  }, [router])
+  const go = (href: string) => {
+    if (href === pathname) return
+    startTransition(() => router.push(href))
+  }
 
   // Seven items at desktop size overflow a phone; shrink them and drop the
   // magnification, which needs a hovering pointer anyway
@@ -30,7 +43,7 @@ export const DockComp: React.FC = () => {
         </svg>
       ),
       label: 'Home',
-      onClick: () => router.push('/')
+      onClick: () => go('/')
     },
     {
       icon: (
@@ -39,7 +52,7 @@ export const DockComp: React.FC = () => {
         </svg>
       ),
       label: 'Projects',
-      onClick: () => router.push('/projects')
+      onClick: () => go('/projects')
     },
     {
       icon: (
@@ -98,11 +111,32 @@ export const DockComp: React.FC = () => {
   ]
 
   return (
-    <Dock
-      items={dockItems}
-      panelHeight={compact ? 52 : 64}
-      baseItemSize={compact ? 36 : 46}
-      magnification={compact ? 36 : 76}
-    />
+    <>
+      <AnimatePresence>
+        {pending && (
+          <motion.div
+            key="route-loader"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.2 }}
+            className="fixed inset-0 z-[60] flex items-center justify-center bg-black/55 backdrop-blur-sm pointer-events-none"
+            role="status"
+            aria-live="polite"
+            aria-label="Loading"
+          >
+            {/* Indeterminate bar along the top */}
+            <span className="absolute top-0 left-0 h-[2px] w-1/3 bg-emerald-400 route-loader-bar" />
+            <span className="h-9 w-9 rounded-full border-2 border-white/10 border-t-emerald-400 animate-spin" />
+          </motion.div>
+        )}
+      </AnimatePresence>
+      <Dock
+        items={dockItems}
+        panelHeight={compact ? 52 : 64}
+        baseItemSize={compact ? 36 : 46}
+        magnification={compact ? 36 : 76}
+      />
+    </>
   )
 }
