@@ -171,7 +171,7 @@ export default function Dock({
             isHovered.set(0);
             mouseX.set(Infinity);
           }}
-          className={`${className} pointer-events-auto fixed bottom-8 left-1/2 transform -translate-x-1/2 flex items-end w-fit gap-4 rounded-full border border-neutral-900/80 pb-2.5 px-4.5 z-50 backdrop-blur-2xl bg-[#08080a]/65 shadow-[0_12px_40px_rgba(0,0,0,0.7)] hover:border-emerald-500/10 before:absolute before:inset-0 before:rounded-full before:bg-gradient-to-br before:from-white/[0.02] before:to-transparent before:opacity-10 before:pointer-events-none`}
+          className={`${className} pointer-events-auto fixed bottom-5 sm:bottom-8 left-1/2 transform -translate-x-1/2 flex items-end w-fit max-w-[calc(100vw-1.5rem)] gap-2 sm:gap-4 rounded-full border border-neutral-900/80 pb-2 sm:pb-2.5 px-3 sm:px-4.5 z-50 backdrop-blur-2xl bg-[#08080a]/65 shadow-[0_12px_40px_rgba(0,0,0,0.7)] hover:border-emerald-500/10 before:absolute before:inset-0 before:rounded-full before:bg-gradient-to-br before:from-white/[0.02] before:to-transparent before:opacity-10 before:pointer-events-none`}
           style={{ height: panelHeight }}
           role="toolbar"
           aria-label="Application dock"

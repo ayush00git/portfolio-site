@@ -40,31 +40,32 @@ const useScrollVelocity = () => {
   return vel
 }
 
-const Row = ({ project, n, onEnter }: { project: Project; n: number; onEnter: (p: Project) => void }) => (
+const Row = ({ project, n, onEnter, active = false }: { project: Project; n: number; onEnter: (p: Project) => void; active?: boolean }) => (
   <a
     href={project.githubLink !== '#' ? project.githubLink : project.liveLink}
     target="_blank"
     rel="noopener noreferrer"
     onMouseEnter={() => onEnter(project)}
-    className="index-row group relative block border-t border-white/15 will-change-transform"
+    data-title={project.title}
+    className={`index-row group relative block border-t border-white/15 will-change-transform ${active ? 'is-active' : ''}`}
   >
-    {/* Wipe that fills the row on hover */}
-    <span className="absolute inset-0 origin-bottom scale-y-0 bg-emerald-400 transition-transform duration-[600ms] ease-[cubic-bezier(0.23,0.32,0.23,1)] group-hover:scale-y-100" />
+    {/* Wipe that fills the row on hover, or on mobile while the row sits in the focus band */}
+    <span className="absolute inset-0 origin-bottom scale-y-0 bg-emerald-400 transition-transform duration-[600ms] ease-[cubic-bezier(0.23,0.32,0.23,1)] group-hover:scale-y-100 group-[.is-active]:scale-y-100" />
 
     <div className="relative flex items-baseline gap-[3vw] py-[1.6vh] px-[1vw]">
       <span className="font-sans text-[10px] tracking-[0.3em] w-12 shrink-0" style={{ color: ACCENT }}>
         {String(n).padStart(2, '0')}
       </span>
 
-      <h3 className="font-display text-[7.4vw] md:text-[5.4vw] leading-[0.98] lowercase tracking-[-0.03em] text-white transition-all duration-[600ms] ease-[cubic-bezier(0.23,0.32,0.23,1)] group-hover:translate-x-[1.4vw] group-hover:text-black">
+      <h3 className="font-display text-[7.4vw] md:text-[5.4vw] leading-[0.98] lowercase tracking-[-0.03em] text-white transition-all duration-[600ms] ease-[cubic-bezier(0.23,0.32,0.23,1)] group-hover:translate-x-[1.4vw] group-hover:text-black group-[.is-active]:translate-x-[1.4vw] group-[.is-active]:text-black">
         {project.title}
       </h3>
 
-      <span className="ml-auto hidden md:block font-sans text-[10px] tracking-[0.25em] uppercase whitespace-nowrap text-white/45 transition-colors duration-500 group-hover:text-black/60">
+      <span className="ml-auto hidden md:block font-sans text-[10px] tracking-[0.25em] uppercase whitespace-nowrap text-white/45 transition-colors duration-500 group-hover:text-black/60 group-[.is-active]:text-black/60">
         {project.category}
       </span>
 
-      <ArrowUpRight size={20} className="shrink-0 text-white/40 transition-all duration-500 group-hover:rotate-45 group-hover:text-black" />
+      <ArrowUpRight size={20} className="shrink-0 text-white/40 transition-all duration-500 group-hover:rotate-45 group-hover:text-black group-[.is-active]:rotate-45 group-[.is-active]:text-black" />
     </div>
   </a>
 )
@@ -109,6 +110,67 @@ const Marquee = ({ group, i, vel }: { group: (typeof skillGroups)[number]; i: nu
   )
 }
 
+// Mobile has no hover, so an invisible band across the lower-middle of the
+// viewport stands in for the pointer: whichever row scrolls through it becomes
+// the active one. Only wired up below lg, where the sticky reader is hidden.
+const useFocusBand = (list: Project[], root: React.RefObject<HTMLElement | null>) => {
+  const [active, setActive] = useState<Project | null>(null)
+  useEffect(() => {
+    const el = root.current
+    if (!el) return
+    const mq = window.matchMedia('(max-width: 1023px)')
+    let io: IntersectionObserver | null = null
+    const connect = () => {
+      io?.disconnect()
+      io = null
+      if (!mq.matches) {
+        setActive(null)
+        return
+      }
+      io = new IntersectionObserver(
+        (entries) => {
+          const hit = entries.filter((e) => e.isIntersecting).pop()
+          if (!hit) return
+          const title = (hit.target as HTMLElement).dataset.title
+          const p = list.find((x) => x.title === title)
+          if (p) setActive(p)
+        },
+        // The band sits below the sticky reader, between 58% and 72% of the viewport
+        { rootMargin: '-58% 0px -28% 0px', threshold: 0 }
+      )
+      el.querySelectorAll<HTMLElement>('.index-row').forEach((r) => io!.observe(r))
+    }
+    connect()
+    mq.addEventListener('change', connect)
+    return () => {
+      mq.removeEventListener('change', connect)
+      io?.disconnect()
+    }
+  }, [list, root])
+  return active
+}
+
+// Every description is stacked in the same grid cell so the panel keeps the
+// height of the tallest one; otherwise a swap would shift the rows below and
+// knock the active row back out of the band.
+const MobileReader = ({ active, list, bg }: { active: Project; list: Project[]; bg: string }) => (
+  <div className={`lg:hidden sticky top-0 z-10 ${bg} pt-[2vh] pb-[2vh] mb-[2vh] border-b border-white/10`}>
+    <span className="font-sans text-[9px] tracking-[0.35em] uppercase text-white/40">now reading</span>
+    <div className="mt-2 grid">
+      {list.map((p) => {
+        const on = p.title === active.title
+        return (
+          <div key={p.title} className={`col-start-1 row-start-1 transition-opacity duration-500 ${on ? 'opacity-100' : 'opacity-0 pointer-events-none'}`} aria-hidden={!on}>
+            <h4 className="font-display text-[6vw] leading-[1] lowercase tracking-[-0.03em] text-white">{p.title}</h4>
+            <span className="mt-2 block h-[2px] w-8" style={{ background: ACCENT }} />
+            <p className="mt-3 text-[13px] leading-relaxed text-white/65 font-inter">{p.description}</p>
+          </div>
+        )
+      })}
+    </div>
+  </div>
+)
+
 const Reader = ({ active }: { active: Project }) => (
   <aside className="hidden lg:block w-[24vw] shrink-0">
     <div className="sticky top-[18vh]">
@@ -138,6 +200,10 @@ export const WorkIndex = () => {
   const vel = useScrollVelocity()
   const [active, setActive] = useState<Project>(projects[0])
   const [activeHobby, setActiveHobby] = useState<Project>(hobbyProjects[0])
+  const listRef = useRef<HTMLDivElement>(null)
+  const hobbyListRef = useRef<HTMLDivElement>(null)
+  const focus = useFocusBand(projects, listRef)
+  const focusHobby = useFocusBand(hobbyProjects, hobbyListRef)
 
   // Shear every row with the scroll, the way a printed page drags
   useEffect(() => {
@@ -175,9 +241,10 @@ export const WorkIndex = () => {
       <section className="relative px-[4vw] pb-[12vh]">
         <div className="mb-[4vh] font-sans text-[10px] tracking-[0.35em] uppercase text-white/45">projects</div>
         <div className="flex gap-[4vw]">
-          <div className="flex-1 min-w-0">
+          <div ref={listRef} className="flex-1 min-w-0">
+            <MobileReader active={focus ?? projects[0]} list={projects} bg="bg-black" />
             {projects.map((project, i) => (
-              <Row key={project.title} project={project} n={i + 1} onEnter={setActive} />
+              <Row key={project.title} project={project} n={i + 1} onEnter={setActive} active={focus?.title === project.title} />
             ))}
             <div className="border-t border-white/15" />
           </div>
@@ -194,9 +261,10 @@ export const WorkIndex = () => {
           hobby projects
         </h2>
         <div className="flex gap-[4vw]">
-          <div className="flex-1 min-w-0">
+          <div ref={hobbyListRef} className="flex-1 min-w-0">
+            <MobileReader active={focusHobby ?? hobbyProjects[0]} list={hobbyProjects} bg="bg-[#0a0a0c]" />
             {hobbyProjects.map((project, i) => (
-              <Row key={project.title} project={project} n={projects.length + i + 1} onEnter={setActiveHobby} />
+              <Row key={project.title} project={project} n={projects.length + i + 1} onEnter={setActiveHobby} active={focusHobby?.title === project.title} />
             ))}
             <div className="border-t border-white/15" />
           </div>

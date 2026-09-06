@@ -1,6 +1,6 @@
 "use client"
 
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { usePathname, useRouter } from 'next/navigation'
 import Dock from './Dock'
 import type { DockItemConfig } from './Dock'
@@ -9,6 +9,17 @@ export const DockComp: React.FC = () => {
   const router = useRouter()
   const pathname = usePathname()
   const onProjects = pathname === '/projects'
+  const [compact, setCompact] = useState(false)
+
+  // Seven items at desktop size overflow a phone; shrink them and drop the
+  // magnification, which needs a hovering pointer anyway
+  useEffect(() => {
+    const mq = window.matchMedia('(max-width: 639px)')
+    const apply = () => setCompact(mq.matches)
+    apply()
+    mq.addEventListener('change', apply)
+    return () => mq.removeEventListener('change', apply)
+  }, [])
 
   const dockItems: DockItemConfig[] = [
     {
@@ -89,9 +100,9 @@ export const DockComp: React.FC = () => {
   return (
     <Dock
       items={dockItems}
-      panelHeight={64}
-      baseItemSize={46}
-      magnification={76}
+      panelHeight={compact ? 52 : 64}
+      baseItemSize={compact ? 36 : 46}
+      magnification={compact ? 36 : 76}
     />
   )
 }
