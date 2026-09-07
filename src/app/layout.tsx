@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { JetBrains_Mono, Inter, Instrument_Serif } from 'next/font/google'
 import './globals.css'
+import { DockComp } from '../components/DockComp'
 
 const jetbrainsMono = JetBrains_Mono({
   subsets: ['latin'],
@@ -34,6 +35,8 @@ export default function RootLayout({
     <html lang="en" className={`${jetbrainsMono.variable} ${inter.variable} ${instrumentSerif.variable}`}>
       <body className="bg-black text-white antialiased">
         {children}
+        {/* Lives here, not in the pages, so it survives navigation without replaying its entrance */}
+        <DockComp />
       </body>
     </html>
   )

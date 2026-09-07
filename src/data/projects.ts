@@ -24,12 +24,11 @@ export const projects: Project[] = [
     liveLink: 'https://cms.nith.ac.in',
   },
   {
-    title: 'laca-web',
-    category: 'APIs / Web',
-    description:
-      "NITH's official LA/CA course registration portal. Handled 70k+ requests across a 2-day window, with a Redis and BullMQ backed job queue keeping SMTP off the request path and MongoDB atomic operations preventing race conditions on concurrent seat enrollment.",
-    githubLink: 'https://github.com/ayush00git/laca-web',
-    liveLink: 'https://laca.nith.ac.in',
+    title: 'goth',
+    category: 'Backend / Microservices',
+    description: 'A production grade Go authentication microservice. Currently implementing Raft consensus for token revocation across instances.',
+    githubLink: 'https://github.com/ayush00git/goth',
+    liveLink: '#',
   },
   {
     title: 'Stanza',
@@ -40,18 +39,27 @@ export const projects: Project[] = [
     liveLink: 'https://www.youtube.com/watch?v=o6uQK9lP_V4',
   },
   {
+    title: 'cortex',
+    category: 'AI / MCP',
+    description:
+      'An MCP server that gives your AI agent long-term memory over your GitHub. Ask it once about any public repo, or a private one of yours, and it never forgets.',
+    githubLink: 'https://github.com/ayush00git/cortex',
+    liveLink: '#',
+  },
+  {
+    title: 'laca-web',
+    category: 'APIs / Web',
+    description:
+      "NITH's official LA/CA course registration portal. Handled 70k+ requests across a 2-day window, with a Redis and BullMQ backed job queue keeping SMTP off the request path and MongoDB atomic operations preventing race conditions on concurrent seat enrollment.",
+    githubLink: 'https://github.com/ayush00git/laca-web',
+    liveLink: 'https://laca.nith.ac.in',
+  },
+  {
     title: 'ProtPocket',
     category: 'AI / Computational Bio',
     description:
       'A browser-native computational drug discovery platform built on AlphaFold data, with pocket detection, docking and mutation impact prediction.',
     githubLink: 'https://github.com/ayush00git/ProtPocket',
-    liveLink: '#',
-  },
-  {
-    title: 'goth',
-    category: 'Backend / Microservices',
-    description: 'A production grade Go authentication microservice. Currently implementing Raft consensus for token revocation across instances.',
-    githubLink: 'https://github.com/ayush00git/goth',
     liveLink: '#',
   },
   {
@@ -102,14 +110,6 @@ export const hobbyProjects: Project[] = [
     description:
       'Voice to text anywhere on my machine. Built because I was tired of typing prompts to Claude Code.',
     githubLink: 'https://github.com/ayush00git/vicy',
-    liveLink: '#',
-  },
-  {
-    title: 'cortex',
-    category: 'AI / MCP',
-    description:
-      'An MCP server that gives your AI agent long-term memory over your GitHub. Ask it once about any public repo, or a private one of yours, and it never forgets.',
-    githubLink: 'https://github.com/ayush00git/cortex',
     liveLink: '#',
   },
   {

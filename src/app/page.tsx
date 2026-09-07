@@ -1,6 +1,5 @@
 import React from 'react'
 import { AboutMe } from '../components/AboutMe'
-import { DockComp } from '../components/DockComp'
 import { Contributions } from '../components/Contributions'
 import { getContributions } from '../lib/contributions'
 
@@ -31,9 +30,6 @@ export default async function Home() {
 
       {/* Bottom spacing for fixed dock */}
       <div className="h-20" />
-
-      {/* Bottom Dock */}
-      <DockComp />
     </main>
   )
 }
