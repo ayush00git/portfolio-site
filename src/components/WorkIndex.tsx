@@ -175,7 +175,7 @@ const Reader = ({ active }: { active: Project }) => (
   <aside className="hidden lg:block w-[24vw] shrink-0">
     <div className="sticky top-[18vh]">
       <span className="font-sans text-[9px] tracking-[0.35em] uppercase text-white/40">now reading</span>
-      <div key={active.title} className="mt-5">
+      <div key={active.title} className="mt-5 reader-in">
         <h4 className="font-display text-[2.6vw] leading-[1] lowercase tracking-[-0.03em] text-white">{active.title}</h4>
         <span className="mt-3 block h-[2px] w-10" style={{ background: ACCENT }} />
         <p className="mt-5 text-sm leading-relaxed text-white/65 font-inter">{active.description}</p>
