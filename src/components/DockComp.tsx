@@ -5,6 +5,7 @@ import { AnimatePresence, motion } from 'motion/react'
 import { usePathname, useRouter } from 'next/navigation'
 import Dock from './Dock'
 import type { DockItemConfig } from './Dock'
+import { track } from '../lib/track'
 
 export const DockComp: React.FC = () => {
   const router = useRouter()
@@ -106,7 +107,10 @@ export const DockComp: React.FC = () => {
         </svg>
       ),
       label: 'Resume',
-      onClick: () => window.open('https://drive.google.com/file/d/1hocYWUEIPINgFh6mUfeMImRo1ork7KJz/view?usp=sharing', '_blank')
+      onClick: () => {
+        track('resume')
+        window.open('https://drive.google.com/file/d/1hocYWUEIPINgFh6mUfeMImRo1ork7KJz/view?usp=sharing', '_blank')
+      }
     }
   ]
 

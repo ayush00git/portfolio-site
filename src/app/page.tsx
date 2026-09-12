@@ -1,6 +1,7 @@
 import React from 'react'
 import { AboutMe } from '../components/AboutMe'
 import { Contributions } from '../components/Contributions'
+import { PageView } from '../components/PageView'
 import { getContributions } from '../lib/contributions'
 
 export default async function Home() {
@@ -8,6 +9,8 @@ export default async function Home() {
 
   return (
     <main className="min-h-screen bg-black w-full flex flex-col items-center py-20 px-6 gap-12 overflow-y-auto relative selection:bg-emerald-500/30 font-sans">
+      <PageView event="home" />
+
       {/* Background radial glow */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[500px] h-[500px] rounded-full bg-emerald-500/5 blur-[120px]" />
