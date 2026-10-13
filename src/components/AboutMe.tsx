@@ -8,7 +8,7 @@ export const AboutMe: React.FC = () => {
       </p>
 
       <p className="text-neutral-400 text-base md:text-lg leading-relaxed font-light text-justify font-inter">
-        Nowadays I love building weekend hobby projects. One of my favourite and most interesting ones is <a href="https://wisp.ayyush.dev" target="_blank" rel="noreferrer" className="text-white font-medium hover:underline">wisp</a>, a security research project. It&apos;s the only project of mine that isn&apos;t open source, mostly because of the ruckus it could cause in the wrong hands. I&apos;m still thinking about shipping it as a product once I put some guardrails in place. Around 25 people are on the waitlist right now.
+        Nowadays I love building weekend hobby projects. One of my favourite and most interesting ones is <a href="https://wisp.ayyush.dev" target="_blank" rel="noreferrer" className="text-white font-medium hover:underline">wisp</a>, a security research project. The other one is <a href="https://github.com/ayush00git/quill" target="_blank" rel="noreferrer" className="text-white font-medium hover:underline">quill</a>. Once I became a maintainer myself I realized maintainers are too busy to pay real attention to every PR, and contributors are writing most of them with AI now, so the review has to be exactly right or something breaks. So I built a Claude Code skill, <span className="text-emerald-400 font-medium">/quill</span>, that picks up every PR waiting on your review and reviews it the way a senior engineer would.
       </p>
 
       <p className="text-neutral-400 text-base md:text-lg leading-relaxed font-light text-justify font-inter">
