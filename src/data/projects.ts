@@ -113,6 +113,30 @@ export const hobbyProjects: Project[] = [
     liveLink: '#',
   },
   {
+    title: 'aahat',
+    category: 'Remote Sensing / Go',
+    description:
+      'Satellite early warning for glacial lake outburst floods in Himachal Pradesh. Measures 22 lakes from Sentinel-2 imagery on AWS, scores each with every factor sourced, traces flood paths over the Copernicus DEM, and tells a villager in Hindi whether they are in the path and how many minutes they have. Built for the WeMakeDevs x AWS Environmental Hacks.',
+    githubLink: 'https://github.com/ayush00git/aahat',
+    liveLink: 'https://aahat.ayyush.dev/',
+  },
+  {
+    title: 'quill',
+    category: 'Claude Code Plugin / Maintainer Tooling',
+    description:
+      'A Claude Code plugin for maintainers. Finds every pull request waiting on your review, checks each one out in an isolated worktree, and hands back a ranked queue with a senior-level review of each. Runs entirely on your machine, no API keys or servers.',
+    githubLink: 'https://github.com/ayush00git/quill',
+    liveLink: '#',
+  },
+  {
+    title: 'avelin-go',
+    category: 'Go / API Client',
+    description:
+      'Unofficial Go client for the AVELIN AI API. OpenAI-style chat completions and Anthropic-style messages with SSE streaming, plus models, embeddings and the public model catalog. Standard library only.',
+    githubLink: 'https://github.com/ayush00git/avelin-go',
+    liveLink: '#',
+  },
+  {
     title: 'cbot',
     category: 'CLI / AI',
     description:
