@@ -105,6 +105,22 @@ export const hobbyProjects: Project[] = [
     liveLink: 'https://wisp.ayyush.dev',
   },
   {
+    title: 'xcurs',
+    category: 'Linux / Android',
+    description:
+      'Your phone, as a touchpad for your Linux laptop. A small daemon creates a virtual mouse, touchpad and keyboard through uinput, so it works on X11 and Wayland on any distro. The Android app finds the laptop on Wi-Fi by itself and supports multi-finger gestures.',
+    githubLink: 'https://github.com/ayush00git/xcurs',
+    liveLink: '#',
+  },
+  {
+    title: 'lyrc',
+    category: 'Linux / Desktop',
+    description:
+      'A fullscreen black screen showing synced lyrics for whatever is playing. Works with Spotify, YouTube and any MPRIS2 player on Wayland and X11, with lyrics from LRCLIB shown one word at a time. GTK 4, no background process.',
+    githubLink: 'https://github.com/ayush00git/lyrc',
+    liveLink: '#',
+  },
+  {
     title: 'vicy',
     category: 'Tooling / Local',
     description:
